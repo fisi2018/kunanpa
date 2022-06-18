@@ -1,0 +1,32 @@
+{
+  "name": "kunanpa-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "next start",
+    "dev": "next dev",
+    "build": "next build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kunanpa/kunanpa-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kunanpa/kunanpa-frontend/issues"
+  },
+  "homepage": "https://github.com/Kunanpa/kunanpa-frontend#readme",
+  "dependencies": {
+    "next": "^12.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.14",
+    "typescript": "^4.7.4"
+  }
+}
