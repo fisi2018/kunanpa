@@ -1,6 +1,6 @@
 import { BASE, signIn } from '../../config'
 import { FcGoogle } from 'react-icons/fc'
-import { BsTwitter } from 'react-icons/bs'
+import { BsFacebook, BsTwitter } from 'react-icons/bs'
 import Link from 'next/link'
 import { FormLoginType } from '../../types/forms'
 import { useForm } from '../hooks/useForm'
@@ -50,9 +50,13 @@ export default function FormLogin () {
                 <FcGoogle/>
                 <p>Continuar con Google</p>
             </span>
-            <span onClick={() => signIn('twitter')} className=' cursor-pointer flex text-sky-500 items-center rounded justify-around p-2 border-gray-300 border' >
+            <span onClick={() => signIn('twitter')} className=' cursor-pointer flex mb-4 text-sky-500 items-center rounded justify-around p-2 border-gray-300 border' >
                 <BsTwitter/>
                 <p className='text-black' >Continuar con Twitter</p>
+            </span>
+            <span onClick={() => signIn('facebook')} className=' cursor-pointer flex text-sky-700 items-center rounded justify-around p-2 border-gray-300 border' >
+                <BsFacebook/>
+                <p className='text-black' >Continuar con Facebook</p>
             </span>
         </form>
   )

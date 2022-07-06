@@ -2,7 +2,8 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import TwitterProvider from 'next-auth/providers/twitter'
-import { GOOGLE_ID, GOOGLE_SECRET, TWITTER_ID, TWITTER_SECRET } from '../../../config'
+import FacebookProvider from 'next-auth/providers/facebook'
+import { FACEBOOK_ID, FACEBOOK_SECRET, GOOGLE_ID, GOOGLE_SECRET, TWITTER_ID, TWITTER_SECRET } from '../../../config'
 import { ResponseLogin } from '../../../types/fetcher'
 import { login } from '../../../utils/fetcher'
 export default NextAuth({
@@ -16,6 +17,10 @@ export default NextAuth({
       clientId: TWITTER_ID,
       clientSecret: TWITTER_SECRET,
       version: '2.0'
+    }),
+    FacebookProvider({
+      clientId: FACEBOOK_ID,
+      clientSecret: FACEBOOK_SECRET
     }),
     Credentials({
       name: 'credentials',
