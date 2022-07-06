@@ -71,7 +71,7 @@ export default NextAuth({
       }
       return token
     },
-    async session ({ user, session, token }) {
+    async session ({ session, token }) {
       const payload = token as {accessToken:string, id:number, direccion:string|null, dni:number|null, nombre:string, avatar:string, email:string}
       session.accessToken = payload.accessToken
       session.user = {
