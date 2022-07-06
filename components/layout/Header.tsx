@@ -1,9 +1,26 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
+import { logout } from '../../utils/fetcher'
 export default function Header () {
   const { data: session } = useSession()
+  const handleLogout = async () => {
+    console.log('session ', session)
+    try {
+      if (session) {
+        if (session.accessToken) {
+          const response = await logout(session.accessToken)
+          alert(response.message)
+        }
+      }
+      await signOut()
+    } catch (err) {
+      const error = err as Error
+      alert(error.message)
+    }
+  }
   return (
         <header className="flex flex-col" >
             <div className="bg-red-700 text-white px-4" >
@@ -63,14 +80,14 @@ export default function Header () {
                             {
                                 session
                                   ? <article className='flex items-center' >
-                                    <p className='text-xs' >{session.user ? session.user.name : 'Anónimo'}</p>
-                                    <figure className='w-8 h-8' >
-                                        {session.user
-                                          ? <img src={session.user.image as string} alt="" />
+                                    <p className='text-xs' >{session.user.nombre}</p>
+                                    <figure className='w-8 mx-2 h-8 overflow-hidden rounded-full' >
+                                        { session.user
+                                          ? <Image width={250} height={250} src={session.user.avatar} alt="" />
                                           : <p>Sin imagen</p>
                                         }
                                     </figure>
-                                    <button className='text-xs ' onClick={() => signOut()} >Logout</button>
+                                    <button className='text-xs ' onClick={handleLogout} >Logout</button>
                                 </article>
                                   : <Link href="/login" >
                             <a>
