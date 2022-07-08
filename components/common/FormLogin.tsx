@@ -41,9 +41,16 @@ export default function FormLogin () {
                 </article>
                   : <button className='rounded-lg font-semibold my-4 py-3 bg-gray-900 text-white text-sm' type='submit' >Iniciar sesión</button>
             }
-            <article className='flex justify-center text-gray-300 items-center' >
+            <article className=' flex justify-center mb-3' >
+              <p className='text-xs'>¿Aún no tienes una cuenta?. 
+                <Link href="/register" >
+                    <a className='text-xs text-red-400 ' > Registrate</a>
+                </Link>
+              </p>
+            </article>
+            <article className='flex justify-center text-gray-300 items-center mb-3' >
                 <hr className='w-20' />
-                <p>o</p>
+                <p className='mx-2'>o</p>
                 <hr className='w-20' />
             </article>
             <span onClick={() => signIn('google')} className=' cursor-pointer flex mb-4 items-center rounded justify-around p-2 border-gray-300 border' >

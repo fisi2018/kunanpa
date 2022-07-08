@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root{
+    --theme-color-a: #C74544;
+    --theme-color-b: #A32928;
+    --theme-color-c: #E06665;
+    --theme-color-d: #FC8887;
+    --theme-color-e: #FFE0E0;
+}
+
+
+.bg-theme-a{
+    background-color: var(--theme-color-a);
+}
+
+.bg-theme-b{
+    background-color: var(--theme-color-b);
+}
+
+.bg-theme-c{
+    background-color: var(--theme-color-c);
+}
+
+.bg-theme-d{
+    background-color: var(--theme-color-d);
+}
+
+.bg-theme-e{
+    background-color: var(--theme-color-e);
+}
