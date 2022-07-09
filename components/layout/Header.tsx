@@ -23,7 +23,7 @@ export default function Header () {
   }
   return (
         <header className="flex flex-col" >
-            <div className="bg-red-700 text-white px-4" >
+            <div className="bg-theme-a text-white px-4" >
                 <nav className="flex justify-between py-4" >
                     <ul className="flex text-sm " >
                         <li className="mr-4" >
