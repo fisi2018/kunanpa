@@ -9,3 +9,6 @@ export type FormRegisterType={
     dni:number,
     direccion:string
 }
+// eslint-disable-next-line no-unused-vars
+export type ErrorForm<Form> = {[Property in keyof Form]:string}
+export type ValidatorForm<Form, FormValidate> = (form:Form)=>ErrorForm<FormValidate>
