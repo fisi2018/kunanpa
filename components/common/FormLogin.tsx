@@ -6,12 +6,13 @@ import { FormLoginType } from '../../types/forms'
 import { useForm } from '../hooks/useForm'
 import { HandlerSubmit } from '../../types/events'
 import Loader from './Loader'
+import loginValidator from '../../utils/validators/login'
 const initForm:FormLoginType = {
   email: '',
   password: ''
 }
 export default function FormLogin () {
-  const { form, handleChange, loading, setLoading } = useForm(initForm)
+  const { form, handleChange, loading, setLoading, error } = useForm(initForm, loginValidator)
   const handleSubmit:HandlerSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -24,10 +25,12 @@ export default function FormLogin () {
             <article className='flex flex-col mb-4' >
                 <label className='font-semibold text-sm text-gray-400' htmlFor="email">Correo*</label>
                 <input onChange={handleChange} value={form.email} className='rounded-lg w-60 border-gray-400' name='email' type="email" />
+                {error.email && <p className='text-red-500 font-light text-sm' >{error.email}</p> }
             </article>
             <article className='flex flex-col mb-4' >
                 <label className='font-semibold text-sm text-gray-400' htmlFor="password">Contraseña*</label>
                 <input onChange={handleChange} value={form.password} className='rounded-lg border-gray-400' name='password' type="password" />
+              {error.password && <p className='text-red-500 font-light text-sm' >{error.password}</p> }
             </article>
             <article className=' flex justify-end' >
             <Link href="/" >
