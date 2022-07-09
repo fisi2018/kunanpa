@@ -6,7 +6,9 @@ const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 
     email: '',
     password: '',
     dni: '',
-    nombre: ''
+    nombre: '',
+    terms: '',
+    repeatPassword: ''
   }
   if (!form.email.trim()) {
     errors.email = 'Campo requerido'
@@ -18,6 +20,10 @@ const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 
     errors.nombre = 'Campo requerido'
   } else if (!REGEX_FORM.REGEX_NOMBRE.test(form.nombre.trim())) errors.nombre = 'Nombre inválido'
   if (form.dni && !REGEX_FORM.REGEX_DNI.test(form.dni.toString())) errors.dni = 'DNI inválido'
+  if (!form.repeatPassword.trim()) {
+    errors.repeatPassword = 'Campo requerido'
+  } else if (form.repeatPassword !== form.password)errors.repeatPassword = 'Las contraseñas no coinciden'
+  if (!form.terms) errors.terms = 'Debe aceptar los términos y condiciones'
   return errors
 }
 export default validationRegister

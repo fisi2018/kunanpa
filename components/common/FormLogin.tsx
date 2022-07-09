@@ -15,6 +15,7 @@ export default function FormLogin () {
   const { form, handleChange, loading, setLoading, error } = useForm(initForm, loginValidator)
   const handleSubmit:HandlerSubmit = async (e) => {
     e.preventDefault()
+    if (error.email || error.password) return alert('Formulario inválido')
     setLoading(true)
     await signIn('credentials', { email: form.email, password: form.password, callbackUrl: `${BASE}/` })
     setLoading(false)
@@ -45,7 +46,7 @@ export default function FormLogin () {
                   : <button className='rounded-lg font-semibold my-4 py-3 bg-gray-900 text-white text-sm' type='submit' >Iniciar sesión</button>
             }
             <article className=' flex justify-center mb-3' >
-              <p className='text-xs'>¿Aún no tienes una cuenta?. 
+              <p className='text-xs'>¿Aún no tienes una cuenta?.
                 <Link href="/register" >
                     <a className='text-xs text-red-400 ' > Registrate</a>
                 </Link>

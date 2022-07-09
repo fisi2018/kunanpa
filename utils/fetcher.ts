@@ -5,7 +5,7 @@ import { FormLoginType, FormRegisterType } from '../types/forms'
 const kunanpa = axios.create({
   baseURL: API
 })
-export const register :FetcherWithBody<FormRegisterType, {message:string}> = async (form) => {
+export const register :FetcherWithBody<Omit<FormRegisterType, 'terms'| 'repeatPassword'>, {message:string}> = async (form) => {
   try {
     const { data } = await kunanpa.post('/signup', form) as AxiosResponse<{message:string}>
     return data
