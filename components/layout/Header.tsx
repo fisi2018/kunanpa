@@ -116,7 +116,9 @@ export default function Header () {
                     </li>
                     <li className='mr-4'>
                          <button className='flex items-center' >
-                            <p>Arreglos express</p>
+                            <Link href="/arreglos-express" >
+                            <a>Arreglos express</a>
+                            </Link>
                             <span className='flex text-red-700 text-sm ' >
                                 <IoIosArrowDown/>
                             </span>
