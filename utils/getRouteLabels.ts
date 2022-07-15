@@ -9,10 +9,16 @@ export default function getRouteLabels (routes:string):Array<{name:string, href:
         href: '/'
       }
     }
+
     return {
       name: formatName(el),
       href: route
     }
+  }).filter((el) => {
+    if (!/^\[.{1,}\]$/i.test(el.name)) {
+      return 1
+    }
+    return 0
   })
 }
 function formatName (route:string):string {

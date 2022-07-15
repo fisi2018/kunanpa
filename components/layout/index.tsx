@@ -12,7 +12,7 @@ export default function Layout ({ children }:Props) {
   return (
         <section>
             <Header/>
-            <main className='p-4' >
+            <main className='p-8' >
               <ul className='flex font-light capitalize ' >
                 { pathname === '/'
                   ? <li>

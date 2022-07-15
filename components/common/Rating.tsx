@@ -39,9 +39,6 @@ export default function Raiting () {
                           <span className='flex text-yellow-500 ' >
                             <BsStarFill/>
                           </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
                           </div>
                         </article>
                         <article className='flex mt-3 ' >
@@ -56,12 +53,6 @@ export default function Raiting () {
                           <span className='flex text-yellow-500' >
                             <BsStarFill/>
                           </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
                           </div>
                         </article>
                         <article className='flex mt-3 ' >
@@ -73,33 +64,12 @@ export default function Raiting () {
                           <span className='flex text-yellow-500 ' >
                             <BsStarFill/>
                           </span>
-                          <span className='flex text-white' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
                           </div>
                         </article>
                         <article className='flex mt-3 ' >
                           <input className='text-red-700 mr-2' type="checkbox" name="perfect" id="" />
                           <div className='flex' >
                           <span className='flex text-yellow-500 ' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
-                            <BsStarFill/>
-                          </span>
-                          <span className='flex text-white ' >
                             <BsStarFill/>
                           </span>
                           </div>

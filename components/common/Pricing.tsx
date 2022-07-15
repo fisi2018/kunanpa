@@ -6,14 +6,14 @@ export default function Pricing () {
                         <input className='rotate-180' type="range" name="" id="" />
                         <input className='bg-red-700' type="range" name="price" id="" />
                         </article>
-                        <div className='flex justify-between ' >
+                        <div className='flex mt-4 justify-between ' >
                           <article className='flex flex-col' >
                             <label className='font-bold text-sm' htmlFor="min">Min</label>
-                            <input className='w-20 rounded-xl ' type="number" name="min" />
+                            <input className='w-28 rounded-xl ' type="number" name="min" />
                           </article>
                           <article className='flex flex-col' >
                             <label className='font-bold text-sm' htmlFor="max">Max</label>
-                            <input className='w-20 rounded-xl ' type="number" name="max" />
+                            <input className='w-28 rounded-xl ' type="number" name="max" />
                           </article>
                         </div>
                       </div>

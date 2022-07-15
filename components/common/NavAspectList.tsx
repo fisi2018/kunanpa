@@ -1,6 +1,6 @@
 import { BsGrid1X2, BsListNested } from 'react-icons/bs'
 
-export default function NavAspectList () {
+export default function NavAspectList ({ total }:{total:number}) {
   return (
         <nav>
                   <ul className='flex text-sm' >
@@ -17,7 +17,7 @@ export default function NavAspectList () {
                       </button>
                     </li>
                     <li className='flex ml-4' >
-                      <span className='flex px-2 rounded-lg bg-theme-e text-red-600 -tracking-widest font-bold  '> 117 </span>
+                      <span className='flex px-2 rounded-lg bg-theme-e text-red-600 -tracking-widest font-bold  '> {total} </span>
                       <p className='text-gray-400 ml-2' >Productos</p>
                     </li>
                   </ul>
