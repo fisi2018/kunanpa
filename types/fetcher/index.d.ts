@@ -9,5 +9,6 @@ export interface ResponseLogin{
         direccion:string|null
     }
 }
-export type FetcherAuth<Response> =(token:string)=>Promise<Response| Error>
-export type FetcherWithBody<Form, Response> =(form:Form)=>Promise<Response| Error>
+export type FetcherAuth<Response> =(token:string)=>Promise<Response>
+export type FetcherWithBody<Form, Response> =(form:Form)=>Promise<Response>
+export type FetcherWithoutBody<Response> = ()=>Promise<Response>

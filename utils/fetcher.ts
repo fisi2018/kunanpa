@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { API } from '../config'
-import { FetcherAuth, FetcherWithBody, ResponseLogin } from '../types/fetcher'
+import { Category, ResponseFlowers } from '../types/data'
+import { FetcherAuth, FetcherWithBody, FetcherWithoutBody, ResponseLogin } from '../types/fetcher'
 import { FormLoginType, FormRegisterType } from '../types/forms'
 const kunanpa = axios.create({
   baseURL: API
@@ -8,6 +9,36 @@ const kunanpa = axios.create({
 export const register :FetcherWithBody<Omit<FormRegisterType, 'terms'| 'repeatPassword'>, {message:string}> = async (form) => {
   try {
     const { data } = await kunanpa.post('/signup', form) as AxiosResponse<{message:string}>
+    return data
+  } catch (err) {
+    const error = err as AxiosError<{message:string}>
+    if (error.response) throw new Error(error.response.data.message)
+    throw new Error('No se obtuvo respuesta del servidor')
+  }
+}
+export const getFlowers:FetcherWithoutBody<ResponseFlowers> = async () => {
+  try {
+    const { data } = await kunanpa.get('/flores') as AxiosResponse<ResponseFlowers>
+    return data
+  } catch (err) {
+    const error = err as AxiosError<{message:string}>
+    if (error.response) throw new Error(error.response.data.message)
+    throw new Error('No se obtuvo respuesta del servidor')
+  }
+}
+export const getCategories:FetcherWithoutBody<{data:Category[]}> = async () => {
+  try {
+    const { data } = await kunanpa.get('/categoria') as AxiosResponse<{data:Category[]}>
+    return data
+  } catch (err) {
+    const error = err as AxiosError<{message:string}>
+    if (error.response) throw new Error(error.response.data.message)
+    throw new Error('No se obtuvo respuesta del servidor')
+  }
+}
+export const getFlowersPage:FetcherWithBody<string, ResponseFlowers> = async (route) => {
+  try {
+    const { data } = await kunanpa.get(`/${route}`) as AxiosResponse<ResponseFlowers>
     return data
   } catch (err) {
     const error = err as AxiosError<{message:string}>

@@ -3,9 +3,14 @@ import Link from 'next/link'
 import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
-import { logout } from '../../utils/fetcher'
+import { getCategories, logout } from '../../utils/fetcher'
+import useSWR from 'swr'
 export default function Header () {
   const { data: session } = useSession()
+  const fetcher = () => getCategories().then((data) => data).catch((err) => {
+    throw new Error('Proceso Fallido: ' + err.message)
+  })
+  const { data: categories } = useSWR('/', fetcher)
   const handleLogout = async () => {
     console.log('session ', session)
     try {
@@ -106,70 +111,18 @@ export default function Header () {
             </div>
             <nav className="bg-gray-800 text-white p-4" >
                 <ul className="flex" >
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Corazones</p>
+                    {
+                        categories && categories.data.map((el) => (
+                            <li key={el.id} className='mr-4 flex items-center'>
+                            <Link href="/arreglos-express" >
+                            <a>{el.nombre}</a>
+                            </Link>
                             <span className='flex text-red-700 text-sm ' >
                                 <IoIosArrowDown/>
                             </span>
-                        </button>
                     </li>
-                    <li className='mr-4'>
-                         <button className='flex items-center' >
-                            <p>Arreglos express</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Coronas</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Cruces</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Montos fúnebres</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Montos</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li className='mr-4' >
-                        <button className='flex items-center' >
-                            <p>Para hombre</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
-                    <li>
-                        <button className='flex items-center' >
-                            <p>Para mujer</p>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
-                        </button>
-                    </li>
+                        ))
+                    }
                 </ul>
             </nav>
         </header>
