@@ -4,12 +4,16 @@ import CardProduct from './CardProduct'
 import FooterProducts from './FooterProducts'
 import NavAspectList from './NavAspectList'
 import NavFilter from './NavFilter'
-
-export default function ListProducts ({ flowers }:{flowers:ResponseFlowers}) {
+type Props={
+  flowers:ResponseFlowers,
+  category:string,
+  id:string
+}
+export default function ListProducts ({ flowers, category, id }:Props) {
   return (
         <>
         <div className='flex pt-6 justify-between items-center' >
-                <h1 className='font-bold text-3xl' >Arreglos Express</h1>
+                <h1 className='font-bold text-3xl capitalize ' >{category}</h1>
                 <NavAspectList total={flowers.total} />
               </div>
               <div className='py-6' >
@@ -23,7 +27,7 @@ export default function ListProducts ({ flowers }:{flowers:ResponseFlowers}) {
                   ))
                   }
                 </div>
-                <FooterProducts flowers={flowers} />
+                <FooterProducts category={category} id={id} flowers={flowers} />
               </div>
         </>
   )

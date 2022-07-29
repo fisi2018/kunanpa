@@ -6,7 +6,7 @@ import { FormLoginType } from '../../types/forms'
 import { useForm } from '../hooks/useForm'
 import { HandlerSubmit } from '../../types/events'
 import Loader from './Loader'
-import loginValidator from '../../utils/validators/login'
+import loginValidator from '../../utilities/validators/login'
 const initForm:FormLoginType = {
   email: '',
   password: ''

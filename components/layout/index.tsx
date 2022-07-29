@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import getRouteLabels from '../../utils/getRouteLabels'
+import getRouteLabels from '../../utilities/getRouteLabels'
 import Footer from './Footer'
 import Header from './Header'
 type Props={

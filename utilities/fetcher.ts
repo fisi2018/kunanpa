@@ -75,3 +75,16 @@ export const logout:FetcherAuth<{message:string}> = async (token) => {
     throw new Error('No hubo respuesta del servidor')
   }
 }
+export const getFlowersByCategory:FetcherWithBody<string, ResponseFlowers> = async (idCategory) => {
+  try {
+    const { data } = await kunanpa.get(`/flores/categoria/${idCategory}`) as AxiosResponse<ResponseFlowers>
+    return data
+  } catch (err) {
+    const error = err as AxiosError<{message:string}>
+    if (error.response) {
+      throw new Error(error.response.data.message)
+    }
+    if (error.code === '404') throw new Error('Recurso no encontrado')
+    throw new Error('No hubo respuesta del servidor')
+  }
+}

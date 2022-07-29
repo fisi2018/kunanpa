@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
-import { getCategories, logout } from '../../utils/fetcher'
+import { getCategories, logout } from '../../utilities/fetcher'
 import useSWR from 'swr'
 export default function Header () {
   const { data: session } = useSession()
@@ -114,7 +114,12 @@ export default function Header () {
                     {
                         categories && categories.data.map((el) => (
                             <li key={el.id} className='mr-4 flex items-center'>
-                            <Link href="/arreglos-express" >
+                            <Link href={{
+                              pathname: '/[category]',
+                              query: {
+                                category: el.nombre.toLowerCase().replaceAll(' ', '-') + '-' + el.id
+                              }
+                            }} >
                             <a>{el.nombre}</a>
                             </Link>
                             <span className='flex text-red-700 text-sm ' >
