@@ -1,5 +1,5 @@
 import { kunanpa } from '@/config'
-import { Category } from '@/types/data'
+import { Category } from '@/types/models'
 import { FetcherWithoutBody } from '@/types/fetcher'
 import { handleErrorResponse } from '@/utilities/errors'
 import { AxiosResponse } from 'axios'

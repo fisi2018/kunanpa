@@ -1,4 +1,4 @@
-import { ResponseFlowers } from '../../types/data'
+import { ResponseFlowers } from '../../types/models'
 import AsideProducts from './AsideProducts'
 import CardProduct from './CardProduct'
 import FooterProducts from './FooterProducts'

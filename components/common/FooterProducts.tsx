@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { ResponseFlowers } from '../../types/data'
+import { ResponseFlowers } from '../../types/models'
 type Props={
     flowers:ResponseFlowers|null,
     category:string,

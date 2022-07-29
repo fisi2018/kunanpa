@@ -1,5 +1,5 @@
 import { kunanpa } from '@/config'
-import { ResponseFlowers } from '@/types/data'
+import { ResponseFlowers } from '@/types/models'
 import { FetcherWithoutBody } from '@/types/fetcher'
 import { handleErrorResponse } from '@/utilities/errors'
 import { AxiosResponse } from 'axios'

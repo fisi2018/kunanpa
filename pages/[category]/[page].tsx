@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { createTitleAdapter } from '../../adapters'
 import ListProducts from '../../components/common/ListProducts'
 import Layout from '../../components/layout'
-import { ResponseFlowers } from '../../types/data'
+import { ResponseFlowers } from '../../types/models'
 type Props={
     flowers:ResponseFlowers,
     category:string,

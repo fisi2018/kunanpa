@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { Flower } from '../../types/data'
+import { Flower } from '../../types/models'
 
 export default function CardProduct ({ flower }:{flower:Flower}) {
   return (
