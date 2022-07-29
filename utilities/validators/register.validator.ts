@@ -1,4 +1,4 @@
-import { REGEX_FORM } from '../../consts/regex'
+import { REGEX_FORM } from '../../constants/regex'
 import { ErrorForm, FormRegisterType, ValidatorForm } from '../../types/forms'
 
 export const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 'direccion'>> = (form) => {

@@ -1,5 +1,5 @@
+import { TAGS_DEMO } from '@/constants/static'
 import Link from 'next/link'
-import { TAGS_DEMO } from '../../consts'
 
 export default function Footer () {
   return (

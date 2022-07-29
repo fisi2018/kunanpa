@@ -5,7 +5,7 @@ import TwitterProvider from 'next-auth/providers/twitter'
 import FacebookProvider from 'next-auth/providers/facebook'
 import { FACEBOOK_ID, FACEBOOK_SECRET, GOOGLE_ID, GOOGLE_SECRET, TWITTER_ID, TWITTER_SECRET } from '../../../config'
 import { ResponseLogin } from '../../../types/fetcher'
-import { login } from '../../../utilities/fetcher'
+import { login } from '@/services/auth'
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
