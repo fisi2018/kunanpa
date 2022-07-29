@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { kunanpa } from '../../config'
 import { FetcherWithBody } from '../../types/fetcher'
 import { FormRegisterType } from '../../types/forms'
-import { handleErrorResponse } from '../../utilities/errors'
+import { handleErrorResponse } from '../../utilities/handleErrors'
 
 export const register :FetcherWithBody<Omit<FormRegisterType, 'terms'| 'repeatPassword'>, {message:string}> = async (form) => {
   try {

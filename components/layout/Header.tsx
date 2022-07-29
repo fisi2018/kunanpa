@@ -6,6 +6,7 @@ import { useSession, signOut } from '../../config'
 import useSWR from 'swr'
 import { getCategories } from '@/services/categories'
 import { logout } from '@/services/auth'
+
 export default function Header () {
   const { data: session } = useSession()
   const fetcher = () => getCategories().then((data) => data).catch((err) => {
@@ -13,15 +14,12 @@ export default function Header () {
   })
   const { data: categories } = useSWR('/', fetcher)
   const handleLogout = async () => {
-    console.log('session ', session)
     try {
       if (session) {
-        if (session.accessToken) {
-          const response = await logout(session.accessToken)
-          alert(response.message)
-        }
+        const response = await logout(session.accessToken)
+        alert(response.message)
+        await signOut()
       }
-      await signOut()
     } catch (err) {
       const error = err as Error
       alert(error.message)

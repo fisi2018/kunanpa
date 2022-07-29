@@ -1,7 +1,7 @@
 import { kunanpa } from '@/config'
 import { ResponseFlowers } from '@/types/models'
 import { FetcherWithBody } from '@/types/fetcher'
-import { handleErrorResponse } from '@/utilities/errors'
+import { handleErrorResponse } from '@/utilities/handleErrors'
 import { AxiosResponse } from 'axios'
 
 export const getFlowersByCategory:FetcherWithBody<string, ResponseFlowers> = async (idCategory) => {

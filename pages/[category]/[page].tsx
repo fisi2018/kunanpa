@@ -21,6 +21,7 @@ export default function CategoryProductsByPage ({ category, id, flowers }:Props)
 export const getServerSideProps:GetServerSideProps = async (ctx) => {
   try {
     const { page, category } = ctx.params as {category:string, page:string}
+    console.log(page, category)
     const flowers = await getFlowersPage(page)
     return {
       props: {

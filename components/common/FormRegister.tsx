@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { HandlerSubmit } from '../../types/events'
 import { FormRegisterType } from '../../types/forms'
 import { useForm } from '../hooks/useForm'
+import { InputCommon, InputOptional } from './inputs'
 import Loader from './Loader'
 const initForm:FormRegisterType = {
   email: '',
@@ -42,36 +43,12 @@ export default function FormRegister () {
   return (
         <form onSubmit={handleSubmit} className='flex flex-col p-6 shadow-xl rounded' >
             <p className='text-xl mb-6 text-center' >Crear una cuenta</p>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="nombre">Nombre*</label>
-                <input onChange={handleChange} value={form.nombre} className='rounded-lg w-60 border-gray-400' name='nombre' type="text" />
-                {error.nombre && <p className='text-red-500 font-light text-sm' >{error.nombre}</p> }
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="dni">DNI</label>
-                <input onChange={handleChange} value={form.dni} className='rounded-lg w-60 border-gray-400' name='dni' type="number" />
-                {error.dni && <p className='text-red-500 font-light text-sm' >{error.dni}</p> }
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="direccion">Dirección</label>
-                <input onChange={handleChange} value={form.direccion} className='rounded-lg w-60 border-gray-400' name='direccion' type="text" />
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="email">Correo*</label>
-                <input onChange={handleChange} value={form.email} className='rounded-lg w-60 border-gray-400' name='email' type="email" />
-                {error.email && <p className='text-red-500 font-light text-sm' >{error.email}</p> }
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="password">Contraseña*</label>
-                <input value={form.password} onChange={handleChange} className='rounded-lg border-gray-400' name='password' type="password" />
-                {error.password && <p className='text-red-500 font-light text-sm' >{error.password}</p> }
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="repeatPassword">Repita la contraseña*</label>
-                <input onChange={handleChange} value={form.repeatPassword} className='rounded-lg border-gray-400' name='repeatPassword' type="password" />
-                {error.repeatPassword && <p className='text-red-500 font-light text-sm' >{error.repeatPassword}</p> }
-            </article>
-
+            <InputCommon error={error.nombre} handleChange={handleChange} label="Nombre*" name='nombre' type='text' value={form.nombre} />
+            <InputCommon error={error.dni} handleChange={handleChange} label="DNI" name='dni' type='number' value={form.dni} />
+            <InputOptional handleChange={handleChange} label="Direccion" name='direccion' type='text' value={form.direccion} />
+            <InputCommon error={error.email} handleChange={handleChange} label="Email*" name='email' type='email' value={form.email} />
+            <InputCommon error={error.password} handleChange={handleChange} label="Contraseña*" name='password' type='password' value={form.password} />
+            <InputCommon error={error.repeatPassword} handleChange={handleChange} label="Repetir contraseña*" name='repeatPassword' type='password' value={form.repeatPassword} />
             <article className='flex flex-col mb-4' >
                 <div className="flex items-start">
                     <div className="flex items-center h-5">

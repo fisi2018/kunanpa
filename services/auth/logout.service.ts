@@ -1,6 +1,6 @@
 import { kunanpa } from '@/config'
 import { FetcherAuth } from '@/types/fetcher'
-import { handleErrorResponse } from '@/utilities/errors'
+import { handleErrorResponse } from '@/utilities/handleErrors'
 import { AxiosResponse } from 'axios'
 
 export const logout:FetcherAuth<{message:string}> = async (token) => {
