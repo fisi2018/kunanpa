@@ -1,7 +1,7 @@
 import { REGEX_FORM } from '../../consts/regex'
 import { ErrorForm, FormRegisterType, ValidatorForm } from '../../types/forms'
 
-const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 'direccion'>> = (form) => {
+export const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 'direccion'>> = (form) => {
   const errors:ErrorForm<Omit<FormRegisterType, 'direccion'>> = {
     email: '',
     password: '',
@@ -26,4 +26,3 @@ const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 
   if (!form.terms) errors.terms = 'Debe aceptar los términos y condiciones'
   return errors
 }
-export default validationRegister

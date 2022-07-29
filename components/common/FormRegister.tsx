@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { HandlerSubmit } from '../../types/events'
 import { FormRegisterType } from '../../types/forms'
 import { register } from '../../utilities/fetcher'
-import validationRegister from '../../utilities/validators/register'
+import validationRegister from '../../utilities/validators/register.validator'
 import { useForm } from '../hooks/useForm'
 import Loader from './Loader'
 const initForm:FormRegisterType = {

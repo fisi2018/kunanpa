@@ -1,7 +1,7 @@
 import { REGEX_FORM } from '../../consts/regex'
 import { ErrorForm, FormLoginType, ValidatorForm } from '../../types/forms'
 
-const loginValidator:ValidatorForm<FormLoginType, FormLoginType> = (form) => {
+export const loginValidator:ValidatorForm<FormLoginType, FormLoginType> = (form) => {
   const errors:ErrorForm<FormLoginType> = {
     email: '',
     password: ''
@@ -14,4 +14,3 @@ const loginValidator:ValidatorForm<FormLoginType, FormLoginType> = (form) => {
   } else if (!REGEX_FORM.REGEX_PASSWORD.test(form.password.trim()))errors.password = 'Contraseña debe tener de 8 a 16 caracteres'
   return errors
 }
-export default loginValidator

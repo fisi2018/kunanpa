@@ -1,9 +1,10 @@
+import { getCategories } from '@/services/categories'
+import { getFlowersByCategory } from '@/services/flowers'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { createTitleAdapter } from '../../adapters'
 import ListProducts from '../../components/common/ListProducts'
 import Layout from '../../components/layout'
 import { ResponseFlowers } from '../../types/data'
-import { getCategories, getFlowersByCategory } from '../../utilities/fetcher'
 type Props={
     flowers:ResponseFlowers,
     category:string,

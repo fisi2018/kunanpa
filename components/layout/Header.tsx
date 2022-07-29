@@ -3,8 +3,9 @@ import Link from 'next/link'
 import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
-import { getCategories, logout } from '../../utilities/fetcher'
 import useSWR from 'swr'
+import { getCategories } from '@/services/categories'
+import { logout } from '@/services/auth'
 export default function Header () {
   const { data: session } = useSession()
   const fetcher = () => getCategories().then((data) => data).catch((err) => {
