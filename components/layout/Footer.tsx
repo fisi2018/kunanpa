@@ -1,5 +1,5 @@
+import { LIST_FOOTER, TAGS_DEMO } from '@/constants/static'
 import Link from 'next/link'
-import { TAGS_DEMO } from '../../consts'
 
 export default function Footer () {
   return (
@@ -9,106 +9,57 @@ export default function Footer () {
                     <li className="mb-4" >
                         <h2 className="font-semibold text-xl text-white" >Contáctanos</h2>
                     </li>
-                    <li className="mb-4" >
-                        <Link href="/" >
-                        <a className="" >About Us</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Careers</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Press Releases</a>
-                        </Link>
-                    </li>
-                    <li>
-                         <Link href="/" >
-                        <a className="" >Blog</a>
-                        </Link>
-                    </li>
+                    {
+                        LIST_FOOTER.LIST_CONTACT.map((li, i) => (
+                            <li className="mb-4" key={li + '-' + i} >
+                                <Link href="/" >
+                                    <a className="capitalize" >{li}</a>
+                                </Link>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <ul className="text-sm font-light text-red-300">
                     <li className="mb-4" >
                         <h2 className="font-semibold text-xl text-white" >Síguenos en</h2>
                     </li>
-                    <li className="mb-4" >
-                        <Link href="/" >
-                        <a className="" >Facebook</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Twitter</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Instagram</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Youtube</a>
-                        </Link>
-                    </li>
-                    <li>
-                         <Link href="/" >
-                        <a className="" >LinkedIn</a>
-                        </Link>
-                    </li>
+                    {
+                        LIST_FOOTER.SOCIAL.map((li, i) => (
+                            <li className="mb-4" key={li + '-' + i} >
+                                <Link href="/" >
+                                    <a className="capitalize" >{li}</a>
+                                </Link>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <ul className="text-sm font-light text-red-300">
                     <li className="mb-4" >
                         <h2 className="font-semibold text-xl text-white" >Destacados</h2>
                     </li>
-                    <li className="mb-4" >
-                        <Link href="/" >
-                        <a className="" >Become an Affiliate</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Advertise your product</a>
-                        </Link>
-                    </li>
-                    <li >
-                         <Link href="/" >
-                        <a className="" >Sell on Market</a>
-                        </Link>
-                    </li>
+                    {
+                        LIST_FOOTER.DESTACADO.map((li, i) => (
+                            <li className="mb-4" key={li + '-' + i} >
+                                <Link href="/" >
+                                    <a className="capitalize" >{li}</a>
+                                </Link>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <ul className="text-sm font-light text-red-300">
                     <li className="mb-4" >
                         <h2 className="font-semibold text-xl text-white" >Cuenta</h2>
                     </li>
-                    <li className="mb-4" >
-                        <Link href="/" >
-                        <a className="" >Your account</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Returns Centre</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >100 % purchase protection</a>
-                        </Link>
-                    </li>
-                    <li className="mb-4" >
-                         <Link href="/" >
-                        <a className="" >Chat with us</a>
-                        </Link>
-                    </li>
-                    <li >
-                         <Link href="/" >
-                        <a className="" >Help</a>
-                        </Link>
-                    </li>
+                    {
+                        LIST_FOOTER.ACCOUNT.map((li, i) => (
+                            <li className="mb-4" key={li + '-' + i} >
+                                <Link href="/" >
+                                    <a className="capitalize" >{li}</a>
+                                </Link>
+                            </li>
+                        ))
+                    }
                 </ul>
             </nav>
             <nav className='mt-8' >

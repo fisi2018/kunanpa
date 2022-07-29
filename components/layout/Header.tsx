@@ -3,8 +3,10 @@ import Link from 'next/link'
 import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
-import { getCategories, logout } from '../../utils/fetcher'
 import useSWR from 'swr'
+import { getCategories } from '@/services/categories'
+import { logout } from '@/services/auth'
+
 export default function Header () {
   const { data: session } = useSession()
   const fetcher = () => getCategories().then((data) => data).catch((err) => {
@@ -12,15 +14,12 @@ export default function Header () {
   })
   const { data: categories } = useSWR('/', fetcher)
   const handleLogout = async () => {
-    console.log('session ', session)
     try {
       if (session) {
-        if (session.accessToken) {
-          const response = await logout(session.accessToken)
-          alert(response.message)
-        }
+        const response = await logout(session.accessToken)
+        alert(response.message)
+        await signOut()
       }
-      await signOut()
     } catch (err) {
       const error = err as Error
       alert(error.message)
@@ -114,7 +113,12 @@ export default function Header () {
                     {
                         categories && categories.data.map((el) => (
                             <li key={el.id} className='mr-4 flex items-center'>
-                            <Link href="/arreglos-express" >
+                            <Link href={{
+                              pathname: '/[category]',
+                              query: {
+                                category: el.nombre.toLowerCase().replaceAll(' ', '-') + '-' + el.id
+                              }
+                            }} >
                             <a>{el.nombre}</a>
                             </Link>
                             <span className='flex text-red-700 text-sm ' >

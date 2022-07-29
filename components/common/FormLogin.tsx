@@ -6,7 +6,8 @@ import { FormLoginType } from '../../types/forms'
 import { useForm } from '../hooks/useForm'
 import { HandlerSubmit } from '../../types/events'
 import Loader from './Loader'
-import loginValidator from '../../utils/validators/login'
+import { loginValidator } from '@/utilities/validators'
+import { InputCommon } from './inputs'
 const initForm:FormLoginType = {
   email: '',
   password: ''
@@ -23,16 +24,8 @@ export default function FormLogin () {
   return (
         <form onSubmit={handleSubmit} className=' flex flex-col p-6 shadow-xl  rounded' >
             <p className='text-xl mb-6 text-center' >Inicio de sesión</p>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="email">Correo*</label>
-                <input onChange={handleChange} value={form.email} className='rounded-lg w-60 border-gray-400' name='email' type="email" />
-                {error.email && <p className='text-red-500 font-light text-sm' >{error.email}</p> }
-            </article>
-            <article className='flex flex-col mb-4' >
-                <label className='font-semibold text-sm text-gray-400' htmlFor="password">Contraseña*</label>
-                <input onChange={handleChange} value={form.password} className='rounded-lg border-gray-400' name='password' type="password" />
-              {error.password && <p className='text-red-500 font-light text-sm' >{error.password}</p> }
-            </article>
+            <InputCommon error={error.email} handleChange={handleChange} label="Correo*" name='email' type='email' value={form.email} />
+            <InputCommon error={error.password} handleChange={handleChange} label="Contraseña*" name='password' type='password' value={form.password} />
             <article className=' flex justify-end' >
             <Link href="/" >
                 <a className='text-xs text-red-400 ' >¿Olvidaste tu contraseña?</a>

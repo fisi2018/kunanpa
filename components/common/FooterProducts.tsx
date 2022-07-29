@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { ResponseFlowers } from '../../types/data'
-
-export default function FooterProducts ({ flowers }:{flowers:ResponseFlowers|null}) {
+import { ResponseFlowers } from '../../types/models'
+type Props={
+    flowers:ResponseFlowers|null,
+    category:string,
+    id:string
+}
+export default function FooterProducts ({ flowers, category, id }:Props) {
   return (
         <footer className='flex items-center justify-between col-span-full ' >
                   <nav className='flex items-center' >
@@ -12,7 +16,7 @@ export default function FooterProducts ({ flowers }:{flowers:ResponseFlowers|nul
                         ? flowers.links.map((el, i) => (
                           el.url &&
                           <li className='ml-2' key={'page-' + i}>
-                            <Link href={el.url.split('/').pop() === 'flores?page=1' ? '/arreglos-express/' : { pathname: '/arreglos-express/[page]', query: { page: el.url.split('/').pop() } }} >
+                            <Link href={el.url.split('/').pop() === id + '?page=1' ? '/' + (category + ' ' + id).replaceAll(' ', '-') : { pathname: '/' + (category + ' ' + id).replaceAll(' ', '-') + '/[page]', query: { page: el.url.split('/').pop() } }} >
                             <a className={el.active ? 'font-bold' : ''} >{el.label.includes('raquo') ? '>' : el.label.includes('laquo') ? '<' : el.label}</a>
                             </Link>
                           </li>

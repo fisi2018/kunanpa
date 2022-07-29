@@ -1,4 +1,4 @@
-export default function getRouteLabels (routes:string):Array<{name:string, href:string}> {
+export const getRouteLabels = (routes:string):Array<{name:string, href:string}> => {
   const array = routes.split('/')
   let route = ''
   return array.map((el, i) => {
