@@ -1,19 +1,19 @@
-import { getFlowersPage } from '@/services/flowers'
+import { getCategoryFlowersByPage } from '@/services/flowers'
 import { GetServerSideProps } from 'next'
 import { createTitleAdapter } from '../../adapters'
 import ListProducts from '../../components/common/ListProducts'
 import Layout from '../../components/layout'
-import { ResponseFlowers } from '../../types/models'
+import { DataFlower } from '../../types/models'
 type Props={
-    flowers:ResponseFlowers,
+    data:DataFlower,
     category:string,
     id:string
 }
-export default function CategoryProductsByPage ({ category, id, flowers }:Props) {
+export default function CategoryProductsByPage ({ category, id, data }:Props) {
   return (
        <Layout>
         <section>
-            <ListProducts category={category} id={id} flowers={flowers} />
+            <ListProducts pages={data.pages} total={data.total} category={category} id={id} flowers={data.flowers} />
         </section>
        </Layout>
   )
@@ -21,11 +21,10 @@ export default function CategoryProductsByPage ({ category, id, flowers }:Props)
 export const getServerSideProps:GetServerSideProps = async (ctx) => {
   try {
     const { page, category } = ctx.params as {category:string, page:string}
-    console.log(page, category)
-    const flowers = await getFlowersPage(page)
+    const data = await getCategoryFlowersByPage(page)
     return {
       props: {
-        flowers,
+        data,
         category: createTitleAdapter(category),
         id: category.split('-').pop()
 

@@ -6,9 +6,9 @@ import { ResponseFlowers } from '@/types/responses'
 import { handleErrorResponse } from '@/utilities/handleErrors'
 import { AxiosResponse } from 'axios'
 
-export const getFlowersByCategory:FetcherWithBody<string, DataFlower> = async (idCategory) => {
+export const getFlowersByPage:FetcherWithBody<string, DataFlower> = async (page) => {
   try {
-    const { data } = await kunanpa.get(`/flores/categoria/${idCategory}`) as AxiosResponse<ResponseFlowers>
+    const { data } = await kunanpa.get(`/${page}`) as AxiosResponse<ResponseFlowers>
     return createFlowersAdapter(data)
   } catch (err) {
     throw handleErrorResponse(err)
