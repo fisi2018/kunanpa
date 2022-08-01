@@ -1,4 +1,5 @@
 export * from './Category.model'
 export * from './Flower.model'
-export * from './LinkPage.model'
-export * from './ResponseFlowers.model'
+export * from './FlowerPage.model'
+export * from './FlowerDetails.model'
+export * from './DataFlower.model'

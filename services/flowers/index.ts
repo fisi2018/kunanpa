@@ -1,3 +1,6 @@
 export * from './getFlowers.service'
-export * from './getFlowersPage.service'
+export * from './getCategoryFlowersByPage.service'
 export * from './getFlowersByCategory.service'
+export * from './getFlowersByPage.service'
+export * from './getFlowersId.service'
+export * from './getFlowerById.service'

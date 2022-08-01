@@ -1,10 +1,10 @@
-export interface Flower{
-    _id:number,
+export interface FlowerResponse{
+    id:number,
     nombre:string,
     descripcion:string,
     precioFinal:number,
     precioInicial:number,
-    dscto:number,
+    descuento:number,
     stock:number,
-    img:string
+    urlimagen:string
 }

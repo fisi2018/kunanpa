@@ -1,29 +1,29 @@
 import { getCategories } from '@/services/categories'
 import { getFlowersByCategory } from '@/services/flowers'
+import { DataFlower } from '@/types/models'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { createTitleAdapter } from '../../adapters'
 import ListProducts from '../../components/common/ListProducts'
 import Layout from '../../components/layout'
-import { ResponseFlowers } from '../../types/models'
 type Props={
-    flowers:ResponseFlowers,
+    data:DataFlower,
     category:string,
     id:string
 }
-export default function CategoryProducts ({ flowers, category, id }:Props) {
+export default function CategoryProducts ({ data, category, id }:Props) {
   return (
         <Layout>
             <section>
-                <ListProducts id={id} category={category} flowers={flowers} />
+                <ListProducts id={id} category={category} pages={data.pages} total={data.total} flowers={data.flowers} />
             </section>
         </Layout>
   )
 }
 export const getStaticPaths:GetStaticPaths = async () => {
   const categories = await getCategories()
-  const paths = categories.data.map((flower) => ({
+  const paths = categories.map((category) => ({
     params: {
-      category: flower.nombre.toLowerCase().replaceAll(' ', '-') + '-' + flower.id
+      category: category.name.toLowerCase().replaceAll(' ', '-') + '-' + category._id
     }
   }))
   return {
@@ -34,11 +34,11 @@ export const getStaticPaths:GetStaticPaths = async () => {
 export const getStaticProps:GetStaticProps = async (ctx) => {
   try {
     const { category } = ctx.params as {category:string}
-    const flowers = await getFlowersByCategory(category.split('-').pop() as string)
+    const data = await getFlowersByCategory(category.split('-').pop() as string)
     return {
       props: {
         category: createTitleAdapter(category),
-        flowers,
+        data,
         id: category.split('-').pop()
       }
     }

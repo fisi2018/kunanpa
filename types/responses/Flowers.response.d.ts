@@ -1,13 +1,14 @@
-import { Flower, LinkPage } from '.'
+import { FlowerPage } from '../models'
+import { FlowerResponse } from './Flower.response'
 
 export interface ResponseFlowers{
     current_page:number,
-    data:Array<Flower>,
+    data:Array<FlowerResponse>,
     first_page_url:string,
     from:number,
     last_page:string,
     last_page_url:string,
-    links:Array<LinkPage>,
+    links:Array<FlowerPage>,
     next_page_url:string|null,
     path:string,
     per_page:number,

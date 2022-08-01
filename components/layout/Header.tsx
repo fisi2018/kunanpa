@@ -111,15 +111,15 @@ export default function Header () {
             <nav className="bg-gray-800 text-white p-4" >
                 <ul className="flex" >
                     {
-                        categories && categories.data.map((el) => (
-                            <li key={el.id} className='mr-4 flex items-center'>
+                        categories && categories.map((el) => (
+                            <li key={el._id} className='mr-4 flex items-center'>
                             <Link href={{
                               pathname: '/[category]',
                               query: {
-                                category: el.nombre.toLowerCase().replaceAll(' ', '-') + '-' + el.id
+                                category: el.name.toLowerCase().replaceAll(' ', '-') + '-' + el._id
                               }
                             }} >
-                            <a>{el.nombre}</a>
+                            <a>{el.name}</a>
                             </Link>
                             <span className='flex text-red-700 text-sm ' >
                                 <IoIosArrowDown/>

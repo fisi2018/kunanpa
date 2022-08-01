@@ -1,13 +1,15 @@
+import { createFlowersAdapter } from '@/adapters/flowers'
 import { kunanpa } from '@/config'
-import { ResponseFlowers } from '@/types/models'
 import { FetcherWithBody } from '@/types/fetcher'
+import { DataFlower } from '@/types/models'
+import { ResponseFlowers } from '@/types/responses'
 import { handleErrorResponse } from '@/utilities/handleErrors'
 import { AxiosResponse } from 'axios'
 
-export const getFlowersPage:FetcherWithBody<string, ResponseFlowers> = async (route) => {
+export const getCategoryFlowersByPage:FetcherWithBody<string, DataFlower> = async (route) => {
   try {
     const { data } = await kunanpa.get(`/flores/categoria/${route}`) as AxiosResponse<ResponseFlowers>
-    return data
+    return createFlowersAdapter(data)
   } catch (err) {
     throw handleErrorResponse(err)
   }
