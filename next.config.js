@@ -11,6 +11,6 @@ module.exports = {
     BASE_URL: process.env.BASE_URL
   },
   images: {
-    domains: ['robohash.org', 'www.rosatel.pe', 'www.recuerdos.pe', 'greenhouse.com.pe', 'florerialasdonas.com', 'lh3.googleusercontent.com', 'pbs.twimg.com', 'platform-lookaside.fbsbx.com']
+    domains: ['res.cloudinary.com', 'robohash.org', 'www.rosatel.pe', 'www.recuerdos.pe', 'greenhouse.com.pe', 'florerialasdonas.com', 'lh3.googleusercontent.com', 'pbs.twimg.com', 'platform-lookaside.fbsbx.com']
   }
 }
