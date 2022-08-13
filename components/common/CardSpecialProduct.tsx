@@ -17,9 +17,9 @@ export function CardSpecialProduct ({ product }:Props) {
             </figure>
             <h3 className='font-bold text-lg' >{product.nombre}</h3>
             <p className='text-sm text-gray-500' >{product.descripcion}</p>
-            <article className='flex items-center justify-between ' >
+            <article className='flex items-center mt-4 justify-between ' >
                 <div className='flex flex-col' >
-                <p className='font-bold text-lg' >{product.precioFinal}PEN</p>
+                <p className='font-bold text-lg' >{product.precioFinal.toFixed(2)} PEN</p>
                 {
                     product.precioInicial !== 0 &&
                 <p className='text-sm text-gray-500 line-through ' >{product.precioInicial}</p>
