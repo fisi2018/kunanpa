@@ -1,10 +1,29 @@
+import { addNewProduct, addOneSameProduct, selectCart } from '@/stateManagement/redux/slices'
 import { SpecialFlower } from '@/types/models'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import swal from 'sweetalert'
+import { useAppDispatch } from '../hooks/useAppDispatch'
+import { useAppSelector } from '../hooks/useAppSelector'
 
 type Props={
     product:SpecialFlower
 }
 export function CardSpecialProduct ({ product }:Props) {
+  const { data: session } = useSession()
+  const cart = useAppSelector(selectCart)
+  const dispatch = useAppDispatch()
+  const handleClick = async () => {
+    try {
+      if (!session) throw new Error('Debe iniciar sesión para poder realizar una compra')
+      const item = cart.products.find((item) => item._id === product._id)
+      if (!item) return dispatch(addNewProduct({ _id: product._id, name: product.nombre, price: product.precioFinal, quantity: 1, img: product.img }))
+      return dispatch(addOneSameProduct(product._id))
+    } catch (e) {
+      const error = e as Error
+      return swal('Proceso Fallido', error.message, 'info')
+    }
+  }
   return (
         <div className='flex flex-col p-4 min-w-[15rem] max-w-[18rem] justify-between border border-gray-300 rounded-xl' >
             <figure className='relative flex justify-center' >
@@ -25,7 +44,7 @@ export function CardSpecialProduct ({ product }:Props) {
                 <p className='text-sm text-gray-500 line-through ' >{product.precioInicial}</p>
                 }
                 </div>
-                <button className='rounded-xl p-2 font-bold text-white bg-theme-a' >Comprar</button>
+                <button onClick={handleClick} className='rounded-xl p-2 font-bold text-white bg-theme-a' >Comprar</button>
             </article>
         </div>
   )

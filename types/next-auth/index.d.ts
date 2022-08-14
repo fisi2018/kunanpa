@@ -9,6 +9,7 @@ declare module 'next-auth' {
     user: {
       nombre:string,
       email:string,
+      provider:string|null,
       dni:number|null,
       id:number,
       direccion:string|null,
@@ -20,6 +21,7 @@ declare module 'next-auth' {
   interface User {
     token:string,
     nombre:string,
+    provider:string|null,
     id:number,
     email:string,
     dni:number|null,

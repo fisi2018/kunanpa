@@ -1,10 +1,21 @@
+import { useSession } from 'next-auth/react'
 import { IoIosArrowDown } from 'react-icons/io'
+import swal from 'sweetalert'
 
 type Props={
     precioInicial:number,
     precioFinal:number,
 }
 export default function ContainerPricingFlower ({ precioInicial, precioFinal }:Props) {
+  const { data: session } = useSession()
+  const handleClick = async () => {
+    try {
+      if (!session) throw new Error('Debe iniciar sesión para poder realizar una compra')
+    } catch (e) {
+      const error = e as Error
+      swal('Proceso Fallido', error.message, 'info')
+    }
+  }
   return (
         <div className='flex border border-gray-300 p-4 rounded-lg ' >
                       <div className='flex flex-col' >
@@ -17,7 +28,7 @@ export default function ContainerPricingFlower ({ precioInicial, precioFinal }:P
                           <span className='mx-4 flex' >|</span>
                           <span className='flex font-bold items-center' >Pcs<IoIosArrowDown/></span>
                         </button>
-                        <button className='bg-theme-a text-white font-bold text-lg rounded-xl p-2' >+ Agregar</button>
+                        <button onClick={handleClick} className='bg-theme-a text-white font-bold text-lg rounded-xl p-2' >+ Agregar</button>
                       </div>
                     </div>
   )

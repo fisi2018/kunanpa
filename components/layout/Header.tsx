@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { BiSearch, BiShoppingBag, BiUser } from 'react-icons/bi'
+import { BiSearch, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
 import useSWR from 'swr'
 import { getCategories } from '@/services/categories'
 import { logout } from '@/services/auth'
+import { Cart } from '../common/Cart'
 
 export default function Header () {
   const { data: session } = useSession()
@@ -15,14 +16,16 @@ export default function Header () {
   const { data: categories } = useSWR('/', fetcher)
   const handleLogout = async () => {
     try {
-      if (session) {
+      if (!session) throw new Error('No iniciaste sesión')
+      if (session.user.provider === 'credentials') {
         const response = await logout(session.accessToken)
         alert(response.message)
-        await signOut()
+        return await signOut()
       }
+      return await signOut()
     } catch (err) {
       const error = err as Error
-      alert(error.message)
+      return alert(error.message)
     }
   }
   return (
@@ -101,9 +104,7 @@ export default function Header () {
                             }
                         </li>
                         <li className="ml-4" >
-                            <button>
-                                <BiShoppingBag/>
-                            </button>
+                            <Cart/>
                         </li>
                     </ul>
                 </nav>
