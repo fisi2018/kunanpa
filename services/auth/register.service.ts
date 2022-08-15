@@ -9,6 +9,7 @@ export const register :FetcherWithBody<Omit<FormRegisterType, 'terms'| 'repeatPa
     const { data } = await kunanpa.post('/signup', form) as AxiosResponse<{message:string}>
     return data
   } catch (err) {
+    console.log(err)
     throw handleErrorResponse(err)
   }
 }

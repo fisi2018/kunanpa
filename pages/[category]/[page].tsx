@@ -27,7 +27,6 @@ export const getServerSideProps:GetServerSideProps = async (ctx) => {
         data,
         category: createTitleAdapter(category),
         id: category.split('-').pop()
-
       }
     }
   } catch (err) {

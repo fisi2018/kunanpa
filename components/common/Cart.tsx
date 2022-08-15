@@ -1,8 +1,10 @@
-import { addOneSameProduct, clearCart, hideCart, removeAllSameProducts, removeOneProduct, selectCart, showCart } from '@/stateManagement/redux/slices'
-import Image from 'next/image'
+import { hideCart, selectCart, showCart } from '@/stateManagement/redux/slices'
+import Link from 'next/link'
 import { BiShoppingBag } from 'react-icons/bi'
+import { MdClose } from 'react-icons/md'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useAppSelector } from '../hooks/useAppSelector'
+import { CardPedido } from './CardPedido'
 
 export function Cart () {
   const cart = useAppSelector(selectCart)
@@ -20,39 +22,51 @@ export function Cart () {
                     {cart.totalQuantity}
                 </span>
         </button>
-        <aside className={` ${cart.active ? 'max-h-auto py-4 ' : 'max-h-0'}  transition-all overflow-hidden duration-300 ease-in-out absolute px-2 top-full rounded-lg shadow-lg right-0 min-w-[20rem] bg-white text-gray-700 flex`} >
-            <ul className='flex flex-col w-full' >
+        <aside className={` ${cart.active ? 'max-h-auto py-2 ' : 'max-h-0'}  transition-all overflow-hidden duration-300 ease-in-out absolute px-4 top-full rounded-lg shadow-lg right-0 min-w-[24rem] z-20 bg-white text-gray-700 flex flex-col`} >
+            <article className='flex justify-between py-2' >
+                <h3 className='font-bold text-xl' >
+                    Carrito de Compra
+                </h3>
+                <button onClick={() => dispatch(hideCart())} className='flex justify-center items-center' >
+                    <span className='flex text-lg justify-center items-center' >
+                        <MdClose/>
+                    </span>
+                </button>
+            </article>
+            <ul className='flex flex-col w-full divide-y' >
                 {
                     cart.products.map((product) => (
-                        <li className='flex w-full justify-between items-center text-sm' key={product._id} >
-                            <figure>
-                            <Image width={64} height={64} alt={product.name} src={product.img} />
-                            </figure>
-                            <article className='flex flex-col' >
-                            <p className='font-bold' >{product.name}</p>
-                            <div className='flex items-center' >
-                                {product.quantity > 1 && <span onClick={() => dispatch(removeOneProduct(product._id))} className='bg-red-700 cursor-pointer flex text-white font-bold px-1 rounded-full' >-</span> }
-                            <p>{product.quantity}</p>
-                            <span onClick={() => dispatch(addOneSameProduct(product._id))} className='bg-red-700 cursor-pointer text-white rounded-full px-1 flex items-center justify-center font-bold ' >+</span>
-
-                            </div>
-                            <p>{product.price.toFixed(2)} PEN</p>
-                            </article>
-                            <article className='flex justify-center items-center' >
-                                <button onClick={() => dispatch(removeAllSameProducts(product._id))} className='bg-red-700 text-white p-1 font-bold rounded-lg' >Remover</button>
-                            </article>
+                        <li className='flex py-2 ' key={product._id} >
+                            <CardPedido producto={product} />
                         </li>
                     ))
                 }
                 <li>
-                    <p className='text-sm' >Total: {cart.totalPrice}</p>
+                    <article className='flex flex-col py-4 ' >
+                    <p className='text-sm font-bold mb-2 ' >Subtotal</p>
+                    <p className='text-xl font-bold' >{cart.totalPrice.toFixed(2)} PEN</p>
+
+                    </article>
                 </li>
-                <li>
-                    <p className='text-sm' >Cantidad: {cart.totalQuantity}</p>
+                <li className='py-4' >
+                    <article className='flex justify-between items-center' >
+
+                    <Link href="/" >
+                    <a className='font-bold text-base' >
+                        Continuar comprando
+                    </a>
+                    </Link>
+                    {
+                    cart.products.length > 0 &&
+                    <Link href="/payment" >
+                        <a className='bg-red-700 text-white text-sm font-bold p-2 rounded-lg' >
+                            Ir a pagar
+                        </a>
+                    </Link>
+                    }
+                    </article>
                 </li>
-                <li>
-                    <button onClick={() => dispatch(clearCart())} className='bg-red-700 text-sm text-white font-bold rounded-lg p-2' >Limpiar carrito</button>
-                </li>
+
             </ul>
         </aside>
     </div>

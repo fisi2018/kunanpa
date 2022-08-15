@@ -68,7 +68,8 @@ export const getStaticProps:GetStaticProps = async (_ctx) => {
         masVendidos,
         clasicos,
         exclusivos
-      }
+      },
+      revalidate: 10
     }
   } catch (err) {
     const error = err as Error

@@ -1,3 +1,4 @@
+import { PaymentSection } from '@/components/common/payment'
 import Layout from '@/components/layout'
 import { GetServerSideProps } from 'next'
 import { Session } from 'next-auth'
@@ -9,7 +10,7 @@ export default function Payment ({ data }:Props) {
   return (
         <Layout>
             <section className="min-h-screen p-4" >
-                <h1>Sección de Pago</h1>
+                <PaymentSection data={data} />
             </section>
         </Layout>
   )

@@ -1,19 +1,29 @@
+import { addNewProduct, addOneSameProduct, selectCart } from '@/stateManagement/redux/slices'
+import { FlowerDetails } from '@/types/models'
 import { useSession } from 'next-auth/react'
 import { IoIosArrowDown } from 'react-icons/io'
 import swal from 'sweetalert'
+import { useAppDispatch } from '../hooks/useAppDispatch'
+import { useAppSelector } from '../hooks/useAppSelector'
 
 type Props={
     precioInicial:number,
     precioFinal:number,
+    producto:FlowerDetails
 }
-export default function ContainerPricingFlower ({ precioInicial, precioFinal }:Props) {
+export default function ContainerPricingFlower ({ producto, precioInicial, precioFinal }:Props) {
   const { data: session } = useSession()
+  const cart = useAppSelector(selectCart)
+  const dispatch = useAppDispatch()
   const handleClick = async () => {
     try {
       if (!session) throw new Error('Debe iniciar sesión para poder realizar una compra')
+      const item = cart.products.find((item) => item._id === producto._id)
+      if (!item) return dispatch(addNewProduct({ _id: producto._id, name: producto.nombre, price: producto.precioFinal, quantity: 1, img: producto.imgs[0].src, initialPrice: producto.precioInicial }))
+      return dispatch(addOneSameProduct(producto._id))
     } catch (e) {
       const error = e as Error
-      swal('Proceso Fallido', error.message, 'info')
+      return swal('Proceso Fallido', error.message, 'info')
     }
   }
   return (

@@ -36,6 +36,7 @@ export default function FormRegister () {
       push('/login')
       setLoading(false)
     } catch (err) {
+      setLoading(false)
       const error = err as Error
       alert(error.message)
     }

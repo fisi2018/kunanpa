@@ -40,7 +40,8 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
         category: createTitleAdapter(category),
         data,
         id: category.split('-').pop()
-      }
+      },
+      revalidate: 10
     }
   } catch (err) {
     const error = err as Error

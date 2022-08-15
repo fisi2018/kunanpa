@@ -36,7 +36,8 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
     return {
       props: {
         flower: response
-      }
+      },
+      revalidate: 10
     }
   } catch (e) {
     const error = e as Error

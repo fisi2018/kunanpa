@@ -40,7 +40,7 @@ export default function ProductDetailsSection ({ flower }:Props) {
                       {flower.detalles}
                     </p>
                     <ListDetailsFlower categories={flower.categorias} idFlower={flower._id} stock={flower.stock} />
-                    <ContainerPricingFlower precioFinal={flower.precioFinal} precioInicial={flower.precioInicial} />
+                    <ContainerPricingFlower producto={flower} precioFinal={flower.precioFinal} precioInicial={flower.precioInicial} />
                     <NavActionsFlower/>
                     <TabFlowerSection contenido={flower.descripcion} origen={flower.detalles} />
                 </div>

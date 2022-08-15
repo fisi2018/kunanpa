@@ -90,6 +90,7 @@ export default NextAuth({
         provider: payload.provider ? payload.provider : '',
         avatar: payload.avatar
       }
+      console.log('session ', session)
       return session
     }
   }

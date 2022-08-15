@@ -10,10 +10,10 @@ export const useForm:HookForm = (initForm, validation) => {
     setError(validation(form))
   }, [form])
   const handleChange:HandlerChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type } = e.target
     setForm({
       ...form,
-      [name]: value
+      [name]: type === 'number' || type === 'tel' ? parseInt(value) : value
     })
   }
   return {

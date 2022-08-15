@@ -17,7 +17,7 @@ export function CardSpecialProduct ({ product }:Props) {
     try {
       if (!session) throw new Error('Debe iniciar sesión para poder realizar una compra')
       const item = cart.products.find((item) => item._id === product._id)
-      if (!item) return dispatch(addNewProduct({ _id: product._id, name: product.nombre, price: product.precioFinal, quantity: 1, img: product.img }))
+      if (!item) return dispatch(addNewProduct({ _id: product._id, name: product.nombre, price: product.precioFinal, quantity: 1, img: product.img, initialPrice: product.precioInicial }))
       return dispatch(addOneSameProduct(product._id))
     } catch (e) {
       const error = e as Error

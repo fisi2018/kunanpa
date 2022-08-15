@@ -1,0 +1,7 @@
+export * from './AditionalInfo'
+export * from './ConfirmPayment'
+export * from './InvoiceMethod'
+export * from './PaymentInfo'
+export * from './PaymentMethod'
+export * from './PaymentSection'
+export * from './ResumenPedido'
