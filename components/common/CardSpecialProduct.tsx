@@ -1,4 +1,4 @@
-import { addNewProduct, addOneSameProduct, selectCart } from '@/stateManagement/redux/slices'
+import { addNewProduct, addSameProduct, selectCart } from '@/stateManagement/redux/slices'
 import { SpecialFlower } from '@/types/models'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -17,8 +17,19 @@ export function CardSpecialProduct ({ product }:Props) {
     try {
       if (!session) throw new Error('Debe iniciar sesión para poder realizar una compra')
       const item = cart.products.find((item) => item._id === product._id)
-      if (!item) return dispatch(addNewProduct({ _id: product._id, name: product.nombre, price: product.precioFinal, quantity: 1, img: product.img, initialPrice: product.precioInicial }))
-      return dispatch(addOneSameProduct(product._id))
+      if (!item) {
+        dispatch(addNewProduct({ _id: product._id, name: product.nombre, price: product.precioFinal, quantity: 1, img: product.img, initialPrice: product.precioInicial }))
+        return swal('Producto agregado', 'A más productos, mayores serán tus descuentos', 'success')
+      }
+      dispatch(addSameProduct({
+        _id: product._id,
+        img: product.img,
+        initialPrice: product.precioInicial,
+        name: product.nombre,
+        price: product.precioFinal,
+        quantity: 1
+      }))
+      return swal('Producto agregado', 'Recuerda que a más productos, mayores serán tus descuentos', 'success')
     } catch (e) {
       const error = e as Error
       return swal('Proceso Fallido', error.message, 'info')
@@ -41,7 +52,7 @@ export function CardSpecialProduct ({ product }:Props) {
                 <p className='font-bold text-lg' >{product.precioFinal.toFixed(2)} PEN</p>
                 {
                     product.precioInicial !== 0 &&
-                <p className='text-sm text-gray-500 line-through ' >{product.precioInicial}</p>
+                <p className='text-sm text-gray-500 line-through ' >{product.precioInicial.toFixed(2)} PEN</p>
                 }
                 </div>
                 <button onClick={handleClick} className='rounded-xl p-2 font-bold text-white bg-theme-a' >Comprar</button>

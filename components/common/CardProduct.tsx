@@ -52,8 +52,8 @@ export default function CardProduct ({ flower }:{flower:Flower}) {
                       </div>
                       <div className='flex flex-col justify-between' >
                         <div className='flex flex-col' >
-                        <p className='font-bold text-xl' >{flower.precioFinal} PEN</p>
-                        <p className='line-through text-gray-400' >{flower.precioInicial}</p>
+                        <p className='font-bold text-xl' >{flower.precioFinal.toFixed(2)} PEN</p>
+                        <p className='line-through text-gray-400' >{flower.precioInicial.toFixed(2)} PEN</p>
                         </div>
                         <div className='flex flex-col text-gray-400' >
                           <p className='font-bold' >Free Shipping</p>

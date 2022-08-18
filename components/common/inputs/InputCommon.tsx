@@ -12,7 +12,7 @@ export const InputCommon = ({ name, type, handleChange, value, error, label }:Pr
   return (
         <article className='flex flex-col mb-4' >
                 <label className='font-semibold text-sm text-gray-400' htmlFor={name}>{label}</label>
-                <input onChange={handleChange} value={value} className='rounded-lg w-60 border-gray-400' name={name} type={type} />
+                <input onChange={handleChange} value={value} className='rounded-lg w-60 border-gray-400 transition-all duration-300 ease-in-out focus:ring-red-500 outline-0 focus:border-red-500 ' name={name} type={type} />
                 {error && <p className='text-red-500 font-light text-sm' >{error}</p> }
             </article>
   )

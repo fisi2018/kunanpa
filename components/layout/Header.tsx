@@ -69,7 +69,11 @@ export default function Header () {
                 </nav>
                 <hr />
                 <nav className="flex justify-between py-8" >
+                    <Link href="/" >
+                        <a>
                     <h1 className="uppercase text-2xl" >Kunanpa</h1>
+                        </a>
+                    </Link>
                     <article className="flex" >
                         <button className="bg-white flex items-center rounded-l-xl text-black px-4 font-bold" >
                             <p>Toda la tienda</p>

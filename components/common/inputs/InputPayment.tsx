@@ -5,13 +5,14 @@ type Props={
     label:string,
     value:string|number,
     handleChange:HandlerChange,
-    type:string
+    type:string,
+    max?:number,
 }
-export function InputPayment ({ name, label, type, value, handleChange }:Props) {
+export function InputPayment ({ name, label, type, value, handleChange, max }:Props) {
   return (
         <article className='flex flex-col' >
             <label className='font-bold text-sm' htmlFor={name}>{label}</label>
-            <input className='p-2 rounded-lg border border-gray-300' value={value} onChange={handleChange} name={name} type={type} />
+            <input maxLength={max} className='p-2 rounded-lg border border-gray-300' value={value} onChange={handleChange} name={name} type={type} />
         </article>
   )
 }

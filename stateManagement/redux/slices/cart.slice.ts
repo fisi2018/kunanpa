@@ -20,18 +20,18 @@ export const cartSlice = createSlice({
     addNewProduct: (state, action: PayloadAction<ProductState>) => {
       const product = action.payload
       state.products.push(product)
-      state.totalPrice += product.price
-      state.totalQuantity += 1
+      state.totalPrice += product.price * product.quantity
+      state.totalQuantity += product.quantity
     },
-    addOneSameProduct: (state, action:PayloadAction<number>) => {
-      const idProduct = action.payload
+    addSameProduct: (state, action:PayloadAction<ProductState>) => {
+      const product = action.payload
       state.products = state.products.map((item) => {
-        if (item._id === idProduct) {
-          state.totalPrice += item.price
-          state.totalQuantity += 1
+        if (item._id === product._id) {
+          state.totalPrice += item.price * product.quantity
+          state.totalQuantity += product.quantity
           return {
             ...item,
-            quantity: item.quantity + 1
+            quantity: item.quantity + product.quantity
           }
         }
         return item
@@ -73,14 +73,11 @@ export const cartSlice = createSlice({
       }
       )
     },
-    clearCart: (state) => {
-      state.active = initialState.active
-      state.products = initialState.products
-      state.totalPrice = initialState.totalPrice
-      state.totalQuantity = initialState.totalQuantity
+    clearCart: () => {
+      return initialState
     }
   }
 })
-export const { addNewProduct, showCart, hideCart, removeOneProduct, addOneSameProduct, clearCart, removeAllSameProducts, removeLastOneProduct } = cartSlice.actions
+export const { addNewProduct, showCart, hideCart, removeOneProduct, addSameProduct, clearCart, removeAllSameProducts, removeLastOneProduct } = cartSlice.actions
 export const selectCart = (state: RootState) => state.cart
 export const cartReducer = cartSlice.reducer

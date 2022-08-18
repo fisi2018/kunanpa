@@ -9,7 +9,6 @@ import { Session } from 'next-auth'
 import swal from 'sweetalert'
 import { AditionalInfo } from './AditionalInfo'
 import { ConfirmPayment } from './ConfirmPayment'
-import { InvoiceMethod } from './InvoiceMethod'
 import { PaymentInfo } from './PaymentInfo'
 import { PaymentMethod } from './PaymentMethod'
 import { ResumenPedido } from './ResumenPedido'
@@ -59,9 +58,7 @@ export function PaymentSection ({ data }:Props) {
                     <div className='col-span-2 row-span-5 ' >
                         <ResumenPedido/>
                     </div>
-                    <div className='col-span-3' >
-                        <InvoiceMethod/>
-                    </div>
+
                     <div className='col-span-3 ' >
                         <PaymentMethod/>
                     </div>
