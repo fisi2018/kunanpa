@@ -48,7 +48,8 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
     return {
       props: {
         error: error.message
-      }
+      },
+      revalidate: 10
     }
   }
 }
