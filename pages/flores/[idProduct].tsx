@@ -19,12 +19,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths = ids.map(id => ({ params: { idProduct: id } }))
     return {
       paths,
-      fallback: false
+      fallback: 'blocking'
     }
   } catch (e) {
     return {
       paths: [],
-      fallback: false
+      fallback: 'blocking'
     }
   }
 }
