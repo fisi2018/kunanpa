@@ -27,7 +27,7 @@ const initForm:PaymentForm = {
 }
 export function PaymentSection ({ data }:Props) {
   const cart = useAppSelector(selectCart)
-  const { form, handleChange, setForm, loading, setLoading } = useForm({
+  const { form, handleChange, setForm, loading, setLoading, error } = useForm({
     ...initForm,
     nombres: data.user.nombre,
     direccion: data.user.direccion || '',
@@ -39,6 +39,10 @@ export function PaymentSection ({ data }:Props) {
     try {
       setLoading(true)
       e.preventDefault()
+      if (error.codigoPostal || error.distrito || error.pais || error.direccion || error.numTelefono || error.nombres) {
+        setLoading(false)
+        return swal('Error', 'Por favor complete los campos requeridos', 'error')
+      }
       const response = await makePayment({ ...form, idCliente: data.user.id }, data.accessToken)
       setLoading(false)
       swal('¡Listo!', response.message, 'success')
@@ -53,7 +57,7 @@ export function PaymentSection ({ data }:Props) {
 
         <section className='grid grid-cols-5 gap-6 grid-flow-row ' >
                     <div className='col-span-3 ' >
-                        <PaymentInfo form={form} setForm={setForm} handleChange={handleChange} data={data} />
+                        <PaymentInfo error={error} form={form} setForm={setForm} handleChange={handleChange} data={data} />
                     </div>
                     <div className='col-span-2 row-span-5 ' >
                         <ResumenPedido/>
