@@ -1,11 +1,11 @@
-import { HandlerChange } from '@/types/events'
-import { PaymentForm } from '@/types/forms'
-import { InputTextAreaPayment } from '../inputs'
+import { IFormPayment } from '@/types/forms'
+import { Textarea } from '@material-tailwind/react'
+import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form'
 type Props={
-    form:PaymentForm,
-    handleChange:HandlerChange,
+    register:UseFormRegister<IFormPayment>,
+    errors:FieldErrorsImpl<IFormPayment>,
 }
-export function AditionalInfo ({ form, handleChange }:Props) {
+export function AditionalInfo ({ register, errors }:Props) {
   return (
         <div>
             <h2 className="font-bold text-xl" >Información adicional</h2>
@@ -13,7 +13,7 @@ export function AditionalInfo ({ form, handleChange }:Props) {
                 <p>¿Necesitas algo más? ¡Lo haremos por ti!</p>
                 <p>Paso 3 de 4</p>
             </article>
-            <InputTextAreaPayment handleChange={handleChange} label="Notas de pedido adicional" name="nota" value={form.nota || ''} placeholder="¿Necesita un día de entrega específico? ¿Enviar un regalo? Digamos..." />
+            <Textarea error={!!errors.nota} {...register('nota')} label="Notas de pedido adicional" />
         </div>
   )
 }

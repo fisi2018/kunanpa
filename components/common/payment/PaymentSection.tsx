@@ -1,11 +1,11 @@
 import { useAppSelector } from '@/components/hooks/useAppSelector'
-import { useForm } from '@/components/hooks/useForm'
+import { useBoolean } from '@/components/hooks/useBoolean'
 import { makePayment } from '@/services/payment'
 import { selectCart } from '@/stateManagement/redux/slices'
-import { HandlerSubmit } from '@/types/events'
-import { PaymentForm } from '@/types/forms'
-import { validationPayment } from '@/utilities/validators'
-import { Session } from 'next-auth'
+import { IFormPayment } from '@/types/forms'
+import { paymentResolver } from '@/utilities/validators'
+import type { Session } from 'next-auth'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import swal from 'sweetalert'
 import { AditionalInfo } from './AditionalInfo'
 import { ConfirmPayment } from './ConfirmPayment'
@@ -15,49 +15,36 @@ import { ResumenPedido } from './ResumenPedido'
 type Props={
     data:Session
 }
-const initForm:PaymentForm = {
-  nombres: '',
-  numTelefono: 0,
-  direccion: '',
-  distrito: '',
-  codigoPostal: 0,
-  pais: '',
-  arreglos: [],
-  total: 0
-}
 export function PaymentSection ({ data }:Props) {
   const cart = useAppSelector(selectCart)
-  const { form, handleChange, setForm, loading, setLoading, error } = useForm({
-    ...initForm,
-    nombres: data.user.nombre,
-    direccion: data.user.direccion || '',
-    arreglos: cart.products.map((el) => ({ idFlor: el._id, cantidad: el.quantity, costo: el.price })),
-    total: cart.totalPrice * 1.18
-
-  }, validationPayment)
-  const handleSubmit:HandlerSubmit = async (e) => {
+  const { value: loading, toogle } = useBoolean(false)
+  const { register, formState: { errors }, handleSubmit } = useForm<IFormPayment>({
+    resolver: paymentResolver
+  })
+  const onSubmit:SubmitHandler<IFormPayment> = async (form) => {
     try {
-      setLoading(true)
-      e.preventDefault()
-      if (error.codigoPostal || error.distrito || error.pais || error.direccion || error.numTelefono || error.nombres) {
-        setLoading(false)
-        return swal('Error', 'Por favor complete los campos requeridos', 'error')
-      }
-      const response = await makePayment({ ...form, idCliente: data.user.id }, data.accessToken)
-      setLoading(false)
+      toogle()
+      const response = await makePayment({
+        ...form,
+        numTelefono: parseInt(form.numTelefono),
+        idCliente: data.user.id,
+        arreglos: cart.products.map((el) => ({ idFlor: el._id, cantidad: el.quantity, costo: el.price })),
+        total: cart.totalPrice * 1.18
+      }, data.accessToken)
+      toogle()
       swal('¡Listo!', response.message, 'success')
     } catch (e) {
-      setLoading(false)
+      toogle()
       const error = e as Error
       swal('Error', error.message, 'error')
     }
   }
   return (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit(onSubmit)} >
 
         <section className='grid grid-cols-5 gap-6 grid-flow-row ' >
                     <div className='col-span-3 ' >
-                        <PaymentInfo error={error} form={form} setForm={setForm} handleChange={handleChange} data={data} />
+                        <PaymentInfo errors={errors} register={register} data={data} />
                     </div>
                     <div className='col-span-2 row-span-5 ' >
                         <ResumenPedido/>
@@ -67,7 +54,7 @@ export function PaymentSection ({ data }:Props) {
                         <PaymentMethod/>
                     </div>
                     <div className='col-span-3 ' >
-                        <AditionalInfo form={form} handleChange={handleChange} />
+                        <AditionalInfo register={register} errors={errors} />
                     </div>
                     <div className='col-span-3 ' >
                         <ConfirmPayment loading={loading} />

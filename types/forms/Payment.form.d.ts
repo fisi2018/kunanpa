@@ -1,9 +1,13 @@
+import { paymentSchema } from '@/utilities/validators'
+import { InferType } from 'yup'
+
 export interface ArregloForm{
     idFlor:number,
     cantidad:number,
     costo:number
 }
-export interface PaymentForm{
+export type IFormPayment=InferType<typeof paymentSchema>
+export interface PaymentBody{
     nombres:string,
     numTelefono:number,
     direccion:string,

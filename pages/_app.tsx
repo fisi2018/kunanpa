@@ -1,14 +1,19 @@
 import { store } from '@/stateManagement/redux/store'
-import { AppProps } from 'next/app'
+import { ThemeProvider } from '@material-tailwind/react'
+import type { Session } from 'next-auth'
+import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { SessionProvider } from '../config'
 import '../styles/globals.css'
-export default function MyApp ({ Component, pageProps: { session, ...pageProps } }:AppProps) {
+function MyApp ({ Component, pageProps: { session, ...pageProps } }: AppProps<{session:Session}>) {
   return (
     <SessionProvider session={session} >
+    <ThemeProvider>
       <Provider store={store} >
         <Component {...pageProps} />
       </Provider>
+    </ThemeProvider>
     </SessionProvider>
   )
 }
+export default MyApp

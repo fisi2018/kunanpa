@@ -1,30 +1,32 @@
 
 import { register } from '@/services/auth'
-import { validationRegister } from '@/utilities/validators'
+import { IFormRegister } from '@/types/forms'
+import { registerResolver } from '@/utilities/validators'
+import { Button, Card, CardBody, CardFooter, CardHeader, Checkbox, Input, Typography } from '@material-tailwind/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { HandlerSubmit } from '../../types/events'
-import { FormRegisterType } from '../../types/forms'
-import { useForm } from '../hooks/useForm'
-import { InputCommon, InputOptional } from './inputs'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useBoolean } from '../hooks/useBoolean'
 import Loader from './Loader'
-const initForm:FormRegisterType = {
-  email: '',
-  password: '',
+const initValues:IFormRegister = {
   direccion: '',
-  dni: 0,
+  dni: '',
+  email: '',
   nombre: '',
-  terms: false,
-  repeatPassword: ''
+  password: '',
+  repeatPassword: '',
+  terms: true
 }
 export default function FormRegister () {
   const { push } = useRouter()
-  const { form, error, setForm, loading, setLoading, handleChange } = useForm(initForm, validationRegister)
-  const handleSubmit:HandlerSubmit = async (e) => {
-    e.preventDefault()
-    if (error.dni || error.email || error.nombre || error.password || error.repeatPassword || error.terms) return alert('Formulario inválido')
+  const { register: registerInput, handleSubmit, formState: { errors } } = useForm<IFormRegister>({
+    resolver: registerResolver,
+    defaultValues: initValues
+  })
+  const { value: loading, toogle } = useBoolean(false)
+  const onSubmit:SubmitHandler<IFormRegister> = async (form) => {
     try {
-      setLoading(true)
+      toogle()
       const data = await register({
         direccion: form.direccion,
         dni: form.dni,
@@ -34,43 +36,37 @@ export default function FormRegister () {
       })
       alert(data.message)
       push('/login')
-      setLoading(false)
+      toogle()
     } catch (err) {
-      setLoading(false)
+      toogle()
       const error = err as Error
       alert(error.message)
     }
   }
   return (
-        <form onSubmit={handleSubmit} className='flex flex-col p-6 shadow-xl rounded' >
-            <p className='text-xl mb-6 text-center' >Crear una cuenta</p>
-            <InputCommon error={error.nombre} handleChange={handleChange} label="Nombre*" name='nombre' type='text' value={form.nombre} />
-            <InputCommon error={error.dni} handleChange={handleChange} label="DNI" name='dni' type='number' value={form.dni} />
-            <InputOptional handleChange={handleChange} label="Direccion" name='direccion' type='text' value={form.direccion} />
-            <InputCommon error={error.email} handleChange={handleChange} label="Email*" name='email' type='email' value={form.email} />
-            <InputCommon error={error.password} handleChange={handleChange} label="Contraseña*" name='password' type='password' value={form.password} />
-            <InputCommon error={error.repeatPassword} handleChange={handleChange} label="Repetir contraseña*" name='repeatPassword' type='password' value={form.repeatPassword} />
-            <article className='flex flex-col mb-4' >
-                <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                        <input onChange={(e) => setForm({ ...form, terms: e.target.checked })} checked={form.terms} id="terms" name="terms" type="checkbox" className="focus:ring-red-400 h-4 w-4 text-red-400 border-gray-300 rounded" />
-                    </div>
-                    <div className="ml-3 text-sm">
-                        <label className="font-medium text-gray-700">Acepto los
-                            <Link href="/" >
-                                <a className='text-xs text-red-400 ' > terminos y condiciones.</a>
-                            </Link>
-                        </label>
-                    </div>
-                </div>
-                {error.terms && <p className='text-red-500 font-light text-xs' >{error.terms}</p> }
-            </article>
+        <form onSubmit={handleSubmit(onSubmit)} >
+          <Card>
+            <CardHeader className='p-4' >
+              <Typography variant="h3" color="gray" textGradient >Crear una cuenta</Typography>
+            </CardHeader>
+            <CardBody className='grid gap-4' >
+              <Input error={!!errors.nombre} {...registerInput('nombre')} label="Nombres" type="text" />
+              <Input error={!!errors.dni} {...registerInput('dni')} label="DNI" type="number" />
+              <Input error={!!errors.direccion} {...registerInput('direccion')} label="Dirección" type="text" />
+              <Input error={!!errors.email} {...registerInput('email')} label="Email" type="email" />
+              <Input error={!!errors.password} {...registerInput('password')} label="Contraseña" type="password" />
+              <Input error={!!errors.repeatPassword} {...registerInput('repeatPassword')} label="Repetir contraseña" type="password" />
+              <Checkbox color="red" {...registerInput('terms')} label='Acepto los términos y condiciones' />
+
+            </CardBody>
+            <CardFooter className='grid gap-4' divider >
+
             {
                 loading
                   ? <article className='flex justify-center' >
                     <Loader/>
                 </article>
-                  : <button className='rounded-lg font-semibold my-4 py-3 bg-gray-900 text-white text-sm' type='submit' > Registrase </button>
+                  : <Button fullWidth variant='gradient' color="blue-gray" type='submit' > Registrarse </Button>
             }
 
             <article className=' flex justify-center' >
@@ -80,6 +76,8 @@ export default function FormRegister () {
                     </Link>
                 </p>
             </article>
+            </CardFooter>
+          </Card>
 
         </form>
   )

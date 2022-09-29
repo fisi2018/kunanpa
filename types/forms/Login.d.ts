@@ -1,4 +1,4 @@
-export type FormLoginType={
-    email:string,
-    password:string
-}
+import { loginSchema } from '@/utilities/validators'
+import { InferType } from 'yup'
+
+export type IFormLogin=InferType<typeof loginSchema>

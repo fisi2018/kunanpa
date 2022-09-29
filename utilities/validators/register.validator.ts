@@ -1,28 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { boolean, object, ref, string } from 'yup'
 import { REGEX_FORM } from '../../constants/regex'
-import { ErrorForm, FormRegisterType, ValidatorForm } from '../../types/forms'
 
-export const validationRegister:ValidatorForm<FormRegisterType, Omit<FormRegisterType, 'direccion'>> = (form) => {
-  const errors:ErrorForm<Omit<FormRegisterType, 'direccion'>> = {
-    email: '',
-    password: '',
-    dni: '',
-    nombre: '',
-    terms: '',
-    repeatPassword: ''
-  }
-  if (!form.email.trim()) {
-    errors.email = 'Campo requerido'
-  } else if (!REGEX_FORM.REGEX_EMAIl.test(form.email.trim())) errors.email = 'Email inválido'
-  if (!form.password.trim()) {
-    errors.password = 'Campo requerido'
-  } else if (!REGEX_FORM.REGEX_PASSWORD.test(form.password.trim())) errors.password = 'Contraseña debe tener entre 8 y 16 caracteres'
-  if (!form.nombre.trim()) {
-    errors.nombre = 'Campo requerido'
-  } else if (!REGEX_FORM.REGEX_NOMBRE.test(form.nombre.trim())) errors.nombre = 'Nombre inválido'
-  if (form.dni && !REGEX_FORM.REGEX_DNI.test(form.dni.toString())) errors.dni = 'DNI inválido'
-  if (!form.repeatPassword.trim()) {
-    errors.repeatPassword = 'Campo requerido'
-  } else if (form.repeatPassword !== form.password)errors.repeatPassword = 'Las contraseñas no coinciden'
-  if (!form.terms) errors.terms = 'Debe aceptar los términos y condiciones'
-  return errors
-}
+export const registerSchema = object({
+  email: string().email('Email inválido').required('Campo requerido'),
+  password: string().min(8, 'La contraseña debe tener 8 carcateres como mínimo').max(16, 'La contraseña debe tener como máximo 16 caracteres').required('Campo requerido'),
+  dni: string().matches(REGEX_FORM.REGEX_DNI, 'DNI Inválido').optional(),
+  nombre: string().required('Campo requerido'),
+  terms: boolean().isTrue().required('Debes aceptar los términos y condiciones'),
+  repeatPassword: string().oneOf([ref('password')], 'Las contraseñas deben coincidir').required('Campo requerido'),
+  direccion: string().optional()
+})
+
+export const registerResolver = yupResolver(registerSchema)

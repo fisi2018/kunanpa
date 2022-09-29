@@ -2,59 +2,64 @@ import { BASE, signIn } from '../../config'
 import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook, BsTwitter } from 'react-icons/bs'
 import Link from 'next/link'
-import { FormLoginType } from '../../types/forms'
-import { useForm } from '../hooks/useForm'
-import { HandlerSubmit } from '../../types/events'
+import type { IFormLogin } from '../../types/forms'
 import Loader from './Loader'
-import { loginValidator } from '@/utilities/validators'
-import { InputCommon } from './inputs'
-const initForm:FormLoginType = {
-  email: '',
-  password: ''
-}
+import { useAppForm } from '../hooks/useAppForm'
+import { loginResolver } from '@/utilities/validators'
+import { SubmitHandler } from 'react-hook-form'
+import { useBoolean } from '../hooks/useBoolean'
+import { Button, Card, CardBody, CardFooter, CardHeader, Input, Typography } from '@material-tailwind/react'
+
 export default function FormLogin () {
-  const { form, handleChange, loading, setLoading, error } = useForm(initForm, loginValidator)
-  const handleSubmit:HandlerSubmit = async (e) => {
-    e.preventDefault()
-    if (error.email || error.password) return alert('Formulario inválido')
-    setLoading(true)
+  const { register, formState: { errors }, handleSubmit } = useAppForm<IFormLogin>({
+    resolver: loginResolver
+  })
+  const { value: loading, toogle } = useBoolean(false)
+  const onSubmit:SubmitHandler<IFormLogin> = async (form) => {
+    toogle()
     await signIn('credentials', { email: form.email, password: form.password, callbackUrl: `${BASE}/` })
-    setLoading(false)
+    toogle()
   }
   return (
-        <form onSubmit={handleSubmit} className=' flex flex-col p-6 shadow-xl  rounded' >
-            <p className='text-xl mb-6 text-center' >Inicio de sesión</p>
-            <InputCommon error={error.email} handleChange={handleChange} label="Correo*" name='email' type='email' value={form.email} />
-            <InputCommon error={error.password} handleChange={handleChange} label="Contraseña*" name='password' type='password' value={form.password} />
+        <form onSubmit={handleSubmit(onSubmit)} >
+          <Card>
+            <CardHeader className='p-2' >
+              <Typography variant="h3" >Inicio de Sesión</Typography>
+            </CardHeader>
+            <CardBody className='grid gap-4' >
+              <Input {...register('email')} error={!!errors.email} label="Correo" type="email" />
+              <Input {...register('password')} error={!!errors.password} label="Contraseña" type="password" />
             <article className=' flex justify-end' >
             <Link href="/" >
                 <a className='text-xs text-red-400 ' >¿Olvidaste tu contraseña?</a>
             </Link>
             </article>
+            </CardBody>
+            <CardFooter divider className='grid gap-4' >
             {
                 loading
                   ? <article className='flex justify-center' >
                     <Loader/>
                 </article>
-                  : <button className='rounded-lg font-semibold my-4 py-3 bg-gray-900 text-white text-sm' type='submit' >Iniciar sesión</button>
+                  : <Button fullWidth color='gray' variant='gradient' type='submit' >Iniciar sesión</Button>
             }
-            <article className=' flex justify-center mb-3' >
+            <article className=' flex justify-center' >
               <p className='text-xs'>¿Aún no tienes una cuenta?.
                 <Link href="/register" >
                     <a className='text-xs text-red-400 ' > Registrate</a>
                 </Link>
               </p>
             </article>
-            <article className='flex justify-center text-gray-300 items-center mb-3' >
+            <article className='flex justify-center text-gray-300 items-center' >
                 <hr className='w-20' />
                 <p className='mx-2'>o</p>
                 <hr className='w-20' />
             </article>
-            <span onClick={() => signIn('google')} className=' cursor-pointer flex mb-4 items-center rounded justify-around p-2 border-gray-300 border' >
+            <span onClick={() => signIn('google')} className=' cursor-pointer flex items-center rounded justify-around p-2 border-gray-300 border' >
                 <FcGoogle/>
                 <p>Continuar con Google</p>
             </span>
-            <span onClick={() => signIn('twitter')} className=' cursor-pointer flex mb-4 text-sky-500 items-center rounded justify-around p-2 border-gray-300 border' >
+            <span onClick={() => signIn('twitter')} className=' cursor-pointer flex text-sky-500 items-center rounded justify-around p-2 border-gray-300 border' >
                 <BsTwitter/>
                 <p className='text-black' >Continuar con Twitter</p>
             </span>
@@ -62,6 +67,8 @@ export default function FormLogin () {
                 <BsFacebook/>
                 <p className='text-black' >Continuar con Facebook</p>
             </span>
+            </CardFooter>
+          </Card>
         </form>
   )
 }

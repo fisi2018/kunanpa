@@ -1,5 +1,6 @@
 import { addNewProduct, addSameProduct, selectCart } from '@/stateManagement/redux/slices'
 import { SpecialFlower } from '@/types/models'
+import { Button } from '@material-tailwind/react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import swal from 'sweetalert'
@@ -55,7 +56,7 @@ export function CardSpecialProduct ({ product }:Props) {
                 <p className='text-sm text-gray-500 line-through ' >{product.precioInicial.toFixed(2)} PEN</p>
                 }
                 </div>
-                <button onClick={handleClick} className='rounded-xl p-2 font-bold text-white bg-theme-a' >Comprar</button>
+                <Button onClick={handleClick} color="red" className="bg-theme-a" >Comprar</Button>
             </article>
         </div>
   )
