@@ -6,7 +6,7 @@ import { RowSpecialProducts } from '@/components/common/RowSpecialProducts'
 import { COMMENTS_DEMO } from '@/constants/static/comments'
 import { getCategories } from '@/services/categories'
 import { getSpecialFlowersByCategory } from '@/services/flowers'
-import { Category } from '@/types/models'
+import { Category, Route } from '@/types/models'
 import { SpecialFlowersResponse } from '@/types/responses'
 import { GetStaticProps } from 'next'
 import Layout from '../components/layout'
@@ -16,9 +16,13 @@ type Props={
   masVendidos:SpecialFlowersResponse,
   exclusivos:SpecialFlowersResponse,
 }
+const routes:Route[] = [{
+  label: 'Inicio',
+  path: '/'
+}]
 export default function Home ({ categories, clasicos, masVendidos, exclusivos }:Props) {
   return (
-    <Layout >
+    <Layout routes={routes} categories={categories} >
         <section className='min-h-screen p-4 grid grid-cols-8 gap-y-16 auto-rows-auto ' >
           <div className='flex col-span-2 '>
             <ListLinks name="categorias" items={categories.map((el) => (

@@ -1,4 +1,5 @@
 import { hideCart, selectCart, showCart } from '@/stateManagement/redux/slices'
+import { IconButton } from '@material-tailwind/react'
 import Link from 'next/link'
 import { BiShoppingBag } from 'react-icons/bi'
 import { MdClose } from 'react-icons/md'
@@ -14,14 +15,16 @@ export function Cart () {
   }
   return (
     <div className='relative' >
-        <button onClick={handleClick} className='flex relative p-2' >
+        <IconButton color='white' variant='text' size='lg' onClick={handleClick} className='flex relative ' >
+                <>
                 <span className='flex justify-center items-center' >
-                     <BiShoppingBag/>
+                     <BiShoppingBag size={24} />
                 </span>
-                <span className=' absolute top-0 right-0 rounded-full block w-4 h-4 text-xs bg-gray-600 font-bold text-white' >
+                <span className=' absolute -top-2 -right-2 rounded-full block w-4 h-4 text-xs bg-gray-600 font-bold text-white' >
                     {cart.totalQuantity}
                 </span>
-        </button>
+                </>
+        </IconButton>
         <aside className={` ${cart.active ? 'max-h-auto py-2 ' : 'max-h-0'}  transition-all overflow-hidden duration-300 ease-in-out absolute px-4 top-full rounded-lg shadow-lg right-0 min-w-[24rem] z-20 bg-white text-gray-700 flex flex-col`} >
             <article className='flex justify-between py-2' >
                 <h3 className='font-bold text-xl' >

@@ -1,34 +1,30 @@
-import { getRouteLabels } from '@/utilities'
+import { Category, Route } from '@/types/models'
+import { Breadcrumbs } from '@material-tailwind/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 type Props={
-  children?:ReactNode
+  children?:ReactNode,
+  categories:Category[],
+  routes:Route[]
 }
-export default function Layout ({ children }:Props) {
-  const { pathname } = useRouter()
+export default function Layout ({ children, categories, routes }:Props) {
   return (
         <section>
-            <Header/>
+            <Header categories={categories} />
             <main className='p-8' >
-              <ul className='flex font-light capitalize ' >
-                { pathname === '/'
-                  ? <li>
-                  <Link href="/" >
-                  <a className='font-semibold' >Inicio</a>
-                  </Link>
-                </li>
-                  : getRouteLabels(pathname).map((el, i, array) => (
-                  <li className='flex' key={`labels-${i}`} >
-                    {i !== 0 && <p className='mx-4' >/</p>}
-                    <Link href={el.href} >
-                    <a className={i === array.length - 1 ? 'font-semibold' : 'font-light'} >{el.name}</a>
-                    </Link>
-                  </li>
-                  ))}
-              </ul>
+              <Breadcrumbs>
+              {
+                routes.map((route, i) => (
+                  <Link key={route.label + '-' + i} href={route.path}>
+                  <a className='capitalize' >
+                    {route.label}
+                    </a></Link>
+                ))
+              }
+              </Breadcrumbs>
+
                 {children}
             </main>
             <Footer/>

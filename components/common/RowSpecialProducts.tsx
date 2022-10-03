@@ -7,7 +7,7 @@ type Props={
 }
 export function RowSpecialProducts ({ nroProducts, products }:Props) {
   return (
-        <div className="flex justify-between w-full " >
+        <div className="grid grid-flow-col gap-4 w-full " >
             {products.slice(0, nroProducts).map((product) => (
                     <CardSpecialProduct key={product._id} product={product} />
             ))}

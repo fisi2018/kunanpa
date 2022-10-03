@@ -7,6 +7,9 @@ module.exports = withMT({
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
+    colors: {
+      'light-gray': '#FFE0E0'
+    },
     extend: {
       keyframes: {
         ldsroller: {

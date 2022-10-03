@@ -3,17 +3,15 @@ import Link from 'next/link'
 import { BiSearch, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useSession, signOut } from '../../config'
-import useSWR from 'swr'
-import { getCategories } from '@/services/categories'
 import { logout } from '@/services/auth'
 import { Cart } from '../common/Cart'
-
-export default function Header () {
+import { Button, IconButton, Input, Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react'
+import { Category } from '@/types/models'
+type Props={
+    categories:Category[]
+}
+export default function Header ({ categories }:Props) {
   const { data: session } = useSession()
-  const fetcher = () => getCategories().then((data) => data).catch((err) => {
-    throw new Error('Proceso Fallido: ' + err.message)
-  })
-  const { data: categories } = useSWR('/', fetcher)
   const handleLogout = async () => {
     try {
       if (!session) throw new Error('No iniciaste sesión')
@@ -71,20 +69,26 @@ export default function Header () {
                 <nav className="flex justify-between py-8" >
                     <Link href="/" >
                         <a>
-                    <h1 className="uppercase text-2xl" >Kunanpa</h1>
+                    <Typography variant="h1" textGradient className="uppercase text-white text-3xl " >Kunanpa</Typography>
                         </a>
                     </Link>
-                    <article className="flex" >
-                        <button className="bg-white flex items-center rounded-l-xl text-black px-4 font-bold" >
-                            <p>Toda la tienda</p>
-                            <span className="flex ml-2 items-end text-red-700 font-black" >
-                                <IoIosArrowDown fontWeight={'bolder'} />
-                            </span>
-                        </button>
-                        <input className="border-gray-200 w-72" placeholder="Buscar Productos, categorías, ..." type="search" name="searcher" />
-                        <span className="bg-white rounded-r-xl text-black items-center px-4 text-lg flex" >
-                            <BiSearch/>
-                        </span>
+                    <article className="grid grid-cols-2 gap-2 " >
+                        <Menu>
+                            <MenuHandler>
+                        <Button color="white" size='sm' className=" flex justify-between self-center justify-self-center items-center  font-bold" >
+                            <Typography variant="small" >Toda la tienda</Typography>
+                                  <span className="flex ml-2 items-end  text-red-700 font-black" >
+                                      <IoIosArrowDown fontWeight={'bolder'} />
+                                  </span>
+                        </Button>
+                            </MenuHandler>
+                            <MenuList>
+                                <MenuItem>Lista de Deseos</MenuItem>
+                            </MenuList>
+                        </Menu>
+                        <div className='flex  items-center bg-white p-4 rounded-lg ' >
+                        <Input color="pink" variant='standard' className=' bg-white ' size='lg' label='Buscar Producto' type="search" icon={<BiSearch size={20} />} />
+                        </div>
                     </article>
                     <ul className="flex text-2xl items-center" >
                         <li>
@@ -102,7 +106,9 @@ export default function Header () {
                                 </article>
                                   : <Link href="/login" >
                             <a>
-                               <BiUser/>
+                                <IconButton size='lg' color='white' variant='text' >
+                               <BiUser size={24} />
+                                </IconButton>
                             </a>
                             </Link>
                             }
@@ -113,22 +119,35 @@ export default function Header () {
                     </ul>
                 </nav>
             </div>
-            <nav className="bg-gray-800 text-white p-4" >
+            <nav className="bg-gray-800 text-white p-2" >
                 <ul className="flex" >
                     {
-                        categories && categories.map((el) => (
-                            <li key={el._id} className='mr-4 flex items-center'>
+                        categories.map((el) => (
+                            <li key={el._id} className=' flex items-center'>
+                                <Menu>
+                                    <MenuHandler>
+                                        <Button color='white' variant='text' className='flex items-center ' >
+                                            <Typography variant="small" >{el.name}</Typography>
+                                            <span className='flex text-red-700 text-sm ' >
+                                                <IoIosArrowDown />
+                                            </span>
+                                        </Button>
+                                    </MenuHandler>
+                                    <MenuList>
+                                        <MenuItem className='flex' >
+
                             <Link href={{
                               pathname: '/[category]',
                               query: {
                                 category: el.name.toLowerCase().replaceAll(' ', '-') + '-' + el._id
                               }
                             }} >
-                            <a>{el.name}</a>
+                            <a className=' flex-1  ' >Ver Productos</a>
                             </Link>
-                            <span className='flex text-red-700 text-sm ' >
-                                <IoIosArrowDown/>
-                            </span>
+                                        </MenuItem>
+                                    </MenuList>
+                                </Menu>
+
                     </li>
                         ))
                     }

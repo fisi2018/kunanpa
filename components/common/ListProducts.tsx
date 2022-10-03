@@ -1,3 +1,4 @@
+import { Typography } from '@material-tailwind/react'
 import { Flower, FlowerPage } from '../../types/models'
 import AsideProducts from './AsideProducts'
 import CardProduct from './CardProduct'
@@ -15,7 +16,7 @@ export default function ListProducts ({ flowers, total, category, id, pages }:Pr
   return (
         <>
         <div className='flex pt-6 justify-between items-center' >
-                <h1 className='font-bold text-3xl capitalize ' >{category}</h1>
+                <Typography variant="h2" className='capitalize ' >{category}</Typography>
                 <NavAspectList total={total} />
               </div>
               <div className='py-6' >
