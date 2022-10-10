@@ -1,27 +1,15 @@
-import ProductDetailsSection from '@/components/common/ProductDetailsSection'
-import Layout from '@/components/layout'
 import { getCategories } from '@/services/categories'
 import { getFlowerById, getFlowersId } from '@/services/flowers'
-import { Category, FlowerDetails, Route } from '@/types/models'
+import { Category, FlowerDetails } from '@/types/models'
+import ProductDetailsView from '@/views/productDetails'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 type Props={
   flower:FlowerDetails,
   categories:Category[]
 }
 export default function ProductDetails ({ flower, categories }:Props) {
-  const route = useRouter()
-  const routes:Route[] = [{
-    label: 'Inicio',
-    path: '/'
-  }, {
-    label: flower.nombre,
-    path: route.pathname
-  }]
   return (
-        <Layout routes={routes} categories={categories} >
-            <ProductDetailsSection flower={flower} />
-        </Layout>
+        <ProductDetailsView categories={categories} flower={flower} />
   )
 }
 export const getStaticPaths: GetStaticPaths = async () => {

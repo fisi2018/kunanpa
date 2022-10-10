@@ -1,25 +1,14 @@
 import { getCategories } from '@/services/categories'
-import { Category, Route } from '@/types/models'
+import { Category } from '@/types/models'
+import LoginView from '@/views/login'
 import { GetStaticProps } from 'next'
-import FormLogin from '../components/common/FormLogin'
-import Layout from '../components/layout'
 type Props={
   categories:Category[]
 }
-const routes:Route[] = [{
-  label: 'Inicio',
-  path: '/'
-}, {
-  label: 'Login',
-  path: '/login'
-}]
+
 export default function Login ({ categories }:Props) {
   return (
-        <Layout routes={routes} categories={categories} >
-            <section className='p-4 flex flex-col items-center' >
-                <FormLogin/>
-            </section>
-        </Layout>
+        <LoginView categories={categories} />
   )
 }
 export const getStaticProps:GetStaticProps = async (_ctx) => {
