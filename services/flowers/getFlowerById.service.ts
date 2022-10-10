@@ -4,11 +4,10 @@ import { FetcherWithBody } from '@/types/fetcher'
 import { FlowerDetails } from '@/types/models'
 import { FlowerDetailsResponse } from '@/types/responses'
 import { handleErrorResponse } from '@/utilities/handleErrors'
-import { AxiosResponse } from 'axios'
 
 export const getFlowerById:FetcherWithBody<string, FlowerDetails> = async (idProduct) => {
   try {
-    const { data } = await kunanpa.get(`/flores/${idProduct}`) as AxiosResponse<FlowerDetailsResponse>
+    const { data } = await kunanpa.get<FlowerDetailsResponse>(`/flores/${idProduct}`)
     return createFlowerDetailsAdapter(data)
   } catch (e) {
     throw handleErrorResponse(e)

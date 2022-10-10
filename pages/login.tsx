@@ -1,16 +1,8 @@
 import { getCategories } from '@/services/categories'
-import { Category } from '@/types/models'
 import LoginView from '@/views/login'
 import { GetStaticProps } from 'next'
-type Props={
-  categories:Category[]
-}
 
-export default function Login ({ categories }:Props) {
-  return (
-        <LoginView categories={categories} />
-  )
-}
+export default LoginView
 export const getStaticProps:GetStaticProps = async (_ctx) => {
   try {
     const categories = await getCategories()

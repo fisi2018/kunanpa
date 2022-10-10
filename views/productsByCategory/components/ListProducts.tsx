@@ -1,5 +1,5 @@
+import { Flower, FlowerPage } from '@/types/models'
 import { Typography } from '@material-tailwind/react'
-import { Flower, FlowerPage } from '../../types/models'
 import AsideProducts from './AsideProducts'
 import CardProduct from './CardProduct'
 import FooterProducts from './FooterProducts'

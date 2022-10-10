@@ -1,5 +1,5 @@
 import { IoIosArrowForward } from 'react-icons/io'
-import { CardComment } from '../../../components/common/CardComment'
+import { CardComment } from './CardComment'
 import { Comment } from '../types/models'
 type Props={
     comments:Array<Comment>

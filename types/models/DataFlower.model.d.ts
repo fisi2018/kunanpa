@@ -1,4 +1,4 @@
-import { Flower } from './Flower.model'
+import { Flower } from '@/types/models'
 import { FlowerPage } from './FlowerPage.model'
 
 export interface DataFlower{

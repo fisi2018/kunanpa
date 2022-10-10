@@ -1,11 +1,13 @@
+import { Flower } from '@/types/models'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { Flower } from '../../types/models'
-
-export default function CardProduct ({ flower }:{flower:Flower}) {
+type Props={
+  flower:Flower
+}
+export default function CardProduct ({ flower }:Props) {
   return (
         <div className='flex border border-gray-400 rounded-lg overflow-hidden items-center mb-8' >
                       <figcaption>

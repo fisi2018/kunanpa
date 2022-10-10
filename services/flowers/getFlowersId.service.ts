@@ -3,12 +3,11 @@ import { kunanpa } from '@/config'
 import { FetcherWithoutBody } from '@/types/fetcher'
 import { ResponseFlowers } from '@/types/responses'
 import { handleErrorResponse } from '@/utilities/handleErrors'
-import { AxiosResponse } from 'axios'
 import { getFlowersByPage } from './getFlowersByPage.service'
 
 export const getFlowersId:FetcherWithoutBody<string[]> = async () => {
   try {
-    const { data: firstPage } = await kunanpa.get('/flores') as AxiosResponse<ResponseFlowers>
+    const { data: firstPage } = await kunanpa.get<ResponseFlowers>('/flores')
     const idsFirstPage = createFlowersIdsAdapter(firstPage)
     const linkOtherPages = firstPage.links.filter((link) => (!link.active && link.url !== null && link.label !== 'Siguiente &raquo;')) as {active:boolean, url:string, label:string}[]
     console.log('links other pages ', linkOtherPages)

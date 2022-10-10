@@ -1,7 +1,7 @@
 import Categories from './Categories'
 import Pricing from './Pricing'
-import Raiting from './Rating'
-import Seassons from './Seassons'
+import Rating from './Rating'
+import Seasons from './Seasons'
 
 export default function AsideProducts () {
   return (
@@ -11,10 +11,10 @@ export default function AsideProducts () {
                       <Categories/>
                     </li>
                     <li className='mt-8' >
-                      <Seassons/>
+                      <Seasons/>
                     </li>
                     <li className='mt-8' >
-                      <Raiting/>
+                      <Rating/>
                     </li>
                     <li className='mt-8' >
                       <Pricing/>

@@ -1,17 +1,8 @@
 import { getCategories } from '@/services/categories'
 import { getFlowerById, getFlowersId } from '@/services/flowers'
-import { Category, FlowerDetails } from '@/types/models'
 import ProductDetailsView from '@/views/productDetails'
 import { GetStaticPaths, GetStaticProps } from 'next'
-type Props={
-  flower:FlowerDetails,
-  categories:Category[]
-}
-export default function ProductDetails ({ flower, categories }:Props) {
-  return (
-        <ProductDetailsView categories={categories} flower={flower} />
-  )
-}
+export default ProductDetailsView
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const ids = await getFlowersId()

@@ -1,4 +1,4 @@
-export default function Seassons () {
+export default function Seasons () {
   return (
         <div className='flex flex-col' >
                         <h2 className='font-bold text-2xl' >Temporada</h2>

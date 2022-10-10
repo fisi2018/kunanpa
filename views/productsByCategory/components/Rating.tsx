@@ -1,6 +1,6 @@
 import { BsStarFill } from 'react-icons/bs'
 
-export default function Raiting () {
+export default function Rating () {
   return (
         <div className='flex flex-col' >
                         <h2 className='font-bold text-2xl' >Clasificación</h2>

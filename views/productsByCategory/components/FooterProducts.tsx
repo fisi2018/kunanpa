@@ -1,6 +1,6 @@
+import { FlowerPage } from '@/types/models'
 import Link from 'next/link'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { FlowerPage } from '../../types/models'
 type Props={
     flowerPages:FlowerPage[],
     total:number,

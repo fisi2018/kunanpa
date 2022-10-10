@@ -1,6 +1,6 @@
-import { Comment } from '@/types/models'
 import Image from 'next/image'
 import { IoMdQuote } from 'react-icons/io'
+import { Comment } from '../types/models'
 
 type Props={
     comment:Comment
