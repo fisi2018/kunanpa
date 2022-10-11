@@ -36,7 +36,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "views/payment/config/payment.config.js"  ],
   "exclude": [
     "node_modules"
   ]
