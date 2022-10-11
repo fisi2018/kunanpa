@@ -31,6 +31,7 @@ export function PaymentSection ({ data }:Props) {
     resolver: paymentResolver
   })
   const onSubmit:SubmitHandler<IFormPayment> = async (form) => {
+    if (response.preferenceId) return
     try {
       toogle()
       const response = await makePayment({
