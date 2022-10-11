@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { checkout } from '../config'
+// import { checkout } from '../config'
 import { OrderPayment } from '../types/models'
 
 type Props={
@@ -7,11 +7,11 @@ type Props={
 }
 export default function Checkout ({ orderPayment }:Props) {
   useEffect(() => {
-    checkout(orderPayment.publicKey, orderPayment.preferenceId, '#checkout-kunampa', 'Realizar Pago')
+    // checkout(orderPayment.publicKey, orderPayment.preferenceId, '#checkout-kunampa', 'Realizar Pago')
   }, [])
   return (
-        <div id="checkout-kunampa" >
+        <a href={orderPayment.redirect_url} target="_blank" rel="noreferrer" id="checkout-kunampa" >
 
-        </div>
+        </a>
   )
 }

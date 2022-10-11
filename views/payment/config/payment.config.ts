@@ -1,5 +1,4 @@
-export const checkout = (publicKey:string, idPreference:string, container:string, label:string) => {
-  // eslint-disable-next-line no-undef
+/* export const checkout = (publicKey:string, idPreference:string, container:string, label:string) => {
   const mp = new MercadoPago(publicKey, {
     locale: 'es-PE'
   })
@@ -13,4 +12,7 @@ export const checkout = (publicKey:string, idPreference:string, container:string
       label
     }
   })
+} */
+export const checkout = () => {
+
 }
