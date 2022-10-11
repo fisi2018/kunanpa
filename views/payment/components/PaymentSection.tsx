@@ -1,12 +1,16 @@
 import { useAppSelector, useBoolean } from '@/components/hooks'
 import { selectCart } from '@/stateManagement/redux/slices'
 import type { Session } from 'next-auth'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import swal from 'sweetalert'
+import { createPaymentAdapter } from '../adapters'
 import { makePayment } from '../services'
 import { IFormPayment } from '../types/forms'
+import { OrderPayment } from '../types/models'
 import { paymentResolver } from '../validators'
 import { AditionalInfo } from './AditionalInfo'
+import Checkout from './Checkout'
 import { ConfirmPayment } from './ConfirmPayment'
 import { PaymentInfo } from './PaymentInfo'
 import { PaymentMethod } from './PaymentMethod'
@@ -17,6 +21,12 @@ type Props={
 export function PaymentSection ({ data }:Props) {
   const cart = useAppSelector(selectCart)
   const { value: loading, toogle } = useBoolean(false)
+  const [response, setResponse] = useState<OrderPayment>({
+    message: '',
+    preferenceId: '',
+    publicKey: '',
+    redirect_url: ''
+  })
   const { register, formState: { errors }, handleSubmit } = useForm<IFormPayment>({
     resolver: paymentResolver
   })
@@ -30,12 +40,13 @@ export function PaymentSection ({ data }:Props) {
         arreglos: cart.products.map((el) => ({ idFlor: el._id, cantidad: el.quantity, costo: el.price })),
         total: cart.totalPrice * 1.18
       }, data.accessToken)
-      toogle()
+      setResponse(createPaymentAdapter(response))
       swal('¡Listo!', response.message, 'success')
     } catch (e) {
-      toogle()
       const error = e as Error
       swal('Error', error.message, 'error')
+    } finally {
+      toogle()
     }
   }
   return (
@@ -56,7 +67,11 @@ export function PaymentSection ({ data }:Props) {
                         <AditionalInfo register={register} errors={errors} />
                     </div>
                     <div className='col-span-3 ' >
-                        <ConfirmPayment loading={loading} />
+                      {
+                        response.preferenceId
+                          ? <Checkout orderPayment={response} />
+                          : <ConfirmPayment loading={loading} />
+                      }
                     </div>
                 </section>
     </form>
