@@ -1,3 +1,5 @@
+import { Button } from '@material-tailwind/react'
+import Link from 'next/link'
 import { useEffect } from 'react'
 // import { checkout } from '../config'
 import { OrderPayment } from '../types/models'
@@ -10,8 +12,10 @@ export default function Checkout ({ orderPayment }:Props) {
     // checkout(orderPayment.publicKey, orderPayment.preferenceId, '#checkout-kunampa', 'Realizar Pago')
   }, [])
   return (
-        <a href={orderPayment.redirect_url} target="_blank" rel="noreferrer" id="checkout-kunampa" >
-
-        </a>
+    <Link target="_blank" href={orderPayment.redirect_url} passHref>
+        <Button color='light-blue' >
+            Realizar Pago
+        </Button>
+    </Link>
   )
 }
