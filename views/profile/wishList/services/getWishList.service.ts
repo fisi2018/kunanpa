@@ -1,11 +1,11 @@
 import { kunanpa } from '@/config'
 import { FetcherAuth } from '@/types/fetcher'
 import { handleErrorResponse } from '@/utilities/handleErrors'
-import { WishListItemResponse } from '../types/responses'
+import { WishListResponse } from '../types/responses'
 
-export const getWishList:FetcherAuth<WishListItemResponse[]> = async (token) => {
+export const getWishList:FetcherAuth<WishListResponse> = async (token) => {
   try {
-    const { data } = await kunanpa.get<WishListItemResponse[]>('/wish-list', {
+    const { data } = await kunanpa.get<WishListResponse>('/wish-list', {
       headers: {
         Authorization: `Bearer ${token}`
       }

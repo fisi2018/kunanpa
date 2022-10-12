@@ -6,3 +6,6 @@ export interface WishListItemResponse{
     precioInicial:number,
     urlimagen:string
 }
+export interface WishListResponse{
+    data:WishListItemResponse[]
+}

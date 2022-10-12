@@ -1,18 +1,18 @@
-import { Flower } from '@/types/models'
+import type { Flower } from '@/types/models'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AiOutlineHeart } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import AddToWishListButton from './AddToWishListButton'
 type Props={
   flower:Flower
 }
 export default function CardProduct ({ flower }:Props) {
   return (
         <div className='flex border border-gray-400 rounded-lg overflow-hidden items-center mb-8' >
-                      <figcaption>
+                      <figure>
                         <Image width={200} height={200} src={flower.img} />
-                      </figcaption>
+                      </figure>
                       <div className='flex justify-between flex-1 p-8' >
                       <div className='flex flex-col justify-between ' >
                         <div className='flex flex-col pb-4' >
@@ -67,7 +67,9 @@ export default function CardProduct ({ flower }:Props) {
                             Ver Detalles <span className='text-2xl flex' ><MdKeyboardArrowRight/></span>
                           </a>
                           </Link>
-                          <button className='bg-gray-100 font-bold flex items-center p-1 mt-4 rounded-lg' > <span className='mr-2' ><AiOutlineHeart /></span> Lista de Deseos</button>
+                          <div className='flex justify-center mt-2' >
+                          <AddToWishListButton idFlor={flower._id} />
+                          </div>
                         </div>
                       </div>
                       </div>
