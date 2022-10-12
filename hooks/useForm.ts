@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { HandlerChange } from '../../types/events'
-import { HookForm } from '../../types/hooks'
+import { HandlerChange } from '../types/events'
+import { HookForm } from '../types/hooks'
 
 export const useForm:HookForm = (initForm, validation) => {
   const [form, setForm] = useState(initForm)

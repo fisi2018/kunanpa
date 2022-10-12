@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/components/hooks'
+import { useAppSelector } from '@/hooks'
 import { selectCart } from '@/stateManagement/redux/slices'
 import { CardPedido } from '../../../components/common/CardPedido'
 

@@ -1,4 +1,4 @@
-import { useForm } from '@/components/hooks/useForm'
+import { useForm } from '@/hooks/useForm'
 import { validationCard } from '@/utilities/validators'
 import { InputCard, InputPayment } from '../../../components/common/inputs'
 

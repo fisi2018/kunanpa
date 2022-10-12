@@ -1,31 +1,16 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { BiSearch, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
-import { useSession, signOut } from '../../config'
-import { logout } from '@/services/auth'
+import { useSession } from '../../config'
 import { Cart } from '../common/Cart'
 import { Button, IconButton, Input, Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react'
 import { Category } from '@/types/models'
+import ProfileMenu from './ProfileMenu'
 type Props={
     categories:Category[]
 }
 export default function Header ({ categories }:Props) {
   const { data: session } = useSession()
-  const handleLogout = async () => {
-    try {
-      if (!session) throw new Error('No iniciaste sesión')
-      if (session.user.provider === 'credentials') {
-        const response = await logout(session.accessToken)
-        alert(response.message)
-        return await signOut()
-      }
-      return await signOut()
-    } catch (err) {
-      const error = err as Error
-      return alert(error.message)
-    }
-  }
   return (
         <header className="flex flex-col" >
             <div className="bg-theme-a text-white px-4" >
@@ -94,16 +79,7 @@ export default function Header ({ categories }:Props) {
                         <li>
                             {
                                 session
-                                  ? <article className='flex items-center' >
-                                    <p className='text-xs' >{session.user.nombre}</p>
-                                    <figure className='w-8 mx-2 h-8 overflow-hidden rounded-full' >
-                                        { session.user
-                                          ? <Image width={250} height={250} src={session.user.avatar} alt="" />
-                                          : <p>Sin imagen</p>
-                                        }
-                                    </figure>
-                                    <button className='text-xs ' onClick={handleLogout} >Logout</button>
-                                </article>
+                                  ? <ProfileMenu session={session} />
                                   : <Link href="/login" >
                             <a>
                                 <IconButton size='lg' color='white' variant='text' >

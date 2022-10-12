@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/components/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { addNewProduct, addSameProduct, selectCart } from '@/stateManagement/redux/slices'
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@material-tailwind/react'
 import { useSession } from 'next-auth/react'

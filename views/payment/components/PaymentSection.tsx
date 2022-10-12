@@ -1,4 +1,4 @@
-import { useAppSelector, useBoolean } from '@/components/hooks'
+import { useAppSelector, useBoolean } from '@/hooks'
 import { selectCart } from '@/stateManagement/redux/slices'
 import type { Session } from 'next-auth'
 import { useState } from 'react'

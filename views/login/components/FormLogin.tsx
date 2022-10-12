@@ -7,7 +7,7 @@ import { BASE, signIn } from '@/config'
 import Loader from '@/components/common/Loader'
 import { loginResolver } from '../validators'
 import type { IFormLogin } from '../types/forms'
-import { useAppForm, useBoolean } from '@/components/hooks'
+import { useAppForm, useBoolean } from '@/hooks'
 
 export default function FormLogin () {
   const { register, formState: { errors }, handleSubmit } = useAppForm<IFormLogin>({

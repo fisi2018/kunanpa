@@ -5,8 +5,8 @@ import { BiHeart, BiStar } from 'react-icons/bi'
 import { IoIosArrowDown, IoIosArrowUp, IoMdClose } from 'react-icons/io'
 import { MdCompare } from 'react-icons/md'
 import swal from 'sweetalert'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { useAppSelector } from '../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 type Props={
     producto:ProductState

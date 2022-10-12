@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/components/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { addNewProduct, addSameProduct, selectCart } from '@/stateManagement/redux/slices'
 import { FlowerDetails } from '@/types/models'
 import { useSession } from 'next-auth/react'

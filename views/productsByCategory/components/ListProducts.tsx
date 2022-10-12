@@ -1,9 +1,9 @@
+import NavAspectList from '@/components/common/NavAspectList'
 import { Flower, FlowerPage } from '@/types/models'
 import { Typography } from '@material-tailwind/react'
 import AsideProducts from './AsideProducts'
 import CardProduct from './CardProduct'
 import FooterProducts from './FooterProducts'
-import NavAspectList from './NavAspectList'
 import NavFilter from './NavFilter'
 type Props={
   flowers:Flower[],

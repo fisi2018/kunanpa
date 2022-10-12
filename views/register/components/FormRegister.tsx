@@ -1,6 +1,6 @@
 
 import Loader from '@/components/common/Loader'
-import { useBoolean } from '@/components/hooks'
+import { useBoolean } from '@/hooks'
 import { Button, Card, CardBody, CardFooter, CardHeader, Checkbox, Input, Typography } from '@material-tailwind/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

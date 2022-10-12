@@ -3,8 +3,8 @@ import { IconButton } from '@material-tailwind/react'
 import Link from 'next/link'
 import { BiShoppingBag } from 'react-icons/bi'
 import { MdClose } from 'react-icons/md'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { useAppSelector } from '../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { CardPedido } from './CardPedido'
 
 export function Cart () {
