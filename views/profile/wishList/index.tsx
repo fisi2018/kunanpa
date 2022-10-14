@@ -43,8 +43,9 @@ export default function WishListView ({ categories }:Props) {
             <section className='pt-6' >
                 <div className='flex justify-between items-center ' >
                     <Typography variant="h2" >Lista de Deseos</Typography>
-                    <NavAspectList total={5} />
+                    <NavAspectList total={data ? data.length : 0} />
                 </div>
+                <div className='p-4 grid grid-cols-1 place-items-center gap-4 ' >
                 {
                     data
                       ? data.map((item) => (
@@ -52,6 +53,7 @@ export default function WishListView ({ categories }:Props) {
                       ))
                       : <Loader/>
                 }
+                </div>
             </section>
         </Layout>
   )
