@@ -1,9 +1,9 @@
 import { useAppSelector, useBoolean } from '@/hooks'
 import { selectCart } from '@/stateManagement/redux/slices'
+import { handleError, handleSuccess } from '@/utilities/handleErrors'
 import type { Session } from 'next-auth'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import swal from 'sweetalert'
 import { createPaymentAdapter } from '../adapters'
 import { makePayment } from '../services'
 import { IFormPayment } from '../types/forms'
@@ -13,7 +13,6 @@ import { AditionalInfo } from './AditionalInfo'
 import Checkout from './Checkout'
 import { ConfirmPayment } from './ConfirmPayment'
 import { PaymentInfo } from './PaymentInfo'
-import { PaymentMethod } from './PaymentMethod'
 import { ResumenPedido } from './ResumenPedido'
 type Props={
     data:Session
@@ -42,10 +41,13 @@ export function PaymentSection ({ data }:Props) {
         total: cart.totalPrice * 1.18
       }, data.accessToken)
       setResponse(createPaymentAdapter(response))
-      swal('¡Listo!', response.message, 'success')
+      handleSuccess(`
+      ${response.message}
+      Excelente solo debe realizar el pago para confirmar su pedido!
+      `)
     } catch (e) {
       const error = e as Error
-      swal('Error', error.message, 'error')
+      handleError(error.message)
     } finally {
       toogle()
     }
@@ -59,10 +61,6 @@ export function PaymentSection ({ data }:Props) {
                     </div>
                     <div className='col-span-2 row-span-5 ' >
                         <ResumenPedido/>
-                    </div>
-
-                    <div className='col-span-3 ' >
-                        <PaymentMethod/>
                     </div>
                     <div className='col-span-3 ' >
                         <AditionalInfo register={register} errors={errors} />

@@ -11,7 +11,7 @@ export function AditionalInfo ({ register, errors }:Props) {
             <h2 className="font-bold text-xl" >Información adicional</h2>
             <article className="flex justify-between text-gray-500 text-sm py-2" >
                 <p>¿Necesitas algo más? ¡Lo haremos por ti!</p>
-                <p>Paso 3 de 4</p>
+                <p>Paso 2 de 3</p>
             </article>
             <Textarea error={!!errors.nota} {...register('nota')} label="Notas de pedido adicional" />
         </div>
