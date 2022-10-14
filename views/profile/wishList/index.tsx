@@ -1,4 +1,3 @@
-import Loader from '@/components/common/Loader'
 import NavAspectList from '@/components/common/NavAspectList'
 import Layout from '@/components/layout'
 import type { Category, Route } from '@/types/models'
@@ -37,7 +36,7 @@ export default function WishListView ({ categories }:Props) {
       throw new Error(error.message)
     }
   }
-  const { data } = useSWR('/wish-list', fetcher)
+  const { data, mutate, isValidating } = useSWR('/wish-list', fetcher)
   return (
         <Layout categories={categories} routes={routes} >
             <section className='pt-6' >
@@ -45,13 +44,12 @@ export default function WishListView ({ categories }:Props) {
                     <Typography variant="h2" >Lista de Deseos</Typography>
                     <NavAspectList total={data ? data.length : 0} />
                 </div>
-                <div className='p-4 grid grid-cols-1 place-items-center gap-4 ' >
+        <div className={`p-4 grid grid-cols-1 place-items-center gap-4 ${isValidating ? ' animate-pulse  ' : ''}`} >
                 {
-                    data
-                      ? data.map((item) => (
-                        <CardProduct key={item._id} item={item} />
-                      ))
-                      : <Loader/>
+                    (data || []).map((item) => (
+                        <CardProduct mutate={mutate} key={item._id} item={item} />
+                    ))
+
                 }
                 </div>
             </section>

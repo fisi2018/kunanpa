@@ -1,14 +1,16 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Chip, Typography } from '@material-tailwind/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { KeyedMutator } from 'swr'
 import { WishListItem } from '../types/models'
 import AddProductButton from './AddProductButton'
 import RemoveProductButton from './RemoveProductButton'
 
 type Props={
-    item:WishListItem
+    item:WishListItem,
+    mutate: KeyedMutator<WishListItem[]>
 }
-export default function CardProduct ({ item }:Props) {
+export default function CardProduct ({ item, mutate }:Props) {
   return (
         <Card className="flex flex-row p-4" >
             <CardHeader className='relative' >
@@ -27,7 +29,7 @@ export default function CardProduct ({ item }:Props) {
                 <Button color='red' variant='gradient' >Ver Detalles</Button>
                 </Link>
                 <AddProductButton product={item} />
-                <RemoveProductButton item={item} />
+                <RemoveProductButton mutate={mutate} item={item} />
             </CardFooter>
         </Card>
   )
