@@ -1,7 +1,7 @@
 import { getCategories } from '@/services/categories'
+import HistorialCompras from '@/views/profile/historialCompras'
 import { GetStaticProps } from 'next'
-import Profile from '@/views/profile/root'
-export default Profile
+export default HistorialCompras
 export const getStaticProps: GetStaticProps = async (_ctx) => {
   try {
     const categories = await getCategories()

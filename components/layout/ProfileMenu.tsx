@@ -25,10 +25,19 @@ export default function ProfileMenu ({ session }:Props) {
         <Menu>
             <MenuHandler>
                <IconButton color='white' size='lg' variant='text' >
-                <Avatar size='xs' variant='circular' src={session.user.avatar} alt={session.user.email} />
+                <Avatar size='xs' variant='circular' src={session.user.avatar} alt={session.user.nombre} />
                </IconButton>
             </MenuHandler>
             <MenuList>
+              <MenuItem>
+              <Link href="/profile" >
+              <a >Mi Perfil</a></Link>
+              </MenuItem>
+              <MenuItem className='flex' >
+              <Link href="/profile/historial-compras" >
+                <a>Historial de Compras </a>
+              </Link>
+              </MenuItem>
                 <MenuItem className='flex' >
                 <Link href="/profile/wish-list" >
                 <a>Lista de Deseos</a>
