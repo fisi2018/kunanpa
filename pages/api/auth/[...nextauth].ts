@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import TwitterProvider from 'next-auth/providers/twitter'
@@ -6,8 +6,7 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import { FACEBOOK_ID, FACEBOOK_SECRET, GOOGLE_ID, GOOGLE_SECRET, TWITTER_ID, TWITTER_SECRET } from '../../../config'
 import { ResponseLogin } from '../../../types/fetcher'
 import { login } from '@/services/auth'
-export default NextAuth({
-  // Configure one or more authentication providers
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: GOOGLE_ID,
@@ -94,4 +93,6 @@ export default NextAuth({
       return session
     }
   }
-})
+}
+
+export default NextAuth(authOptions);

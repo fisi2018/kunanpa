@@ -24,6 +24,9 @@ module.exports = withMT({
         'theme-c': '#E06665',
         'theme-d': '#FC8887',
         'theme-e': '#FFE0E0'
+      },
+      gridTemplateColumns:{
+        "auto":"repeat(auto-fit,minmax(150px,1fr))"
       }
 
     }
