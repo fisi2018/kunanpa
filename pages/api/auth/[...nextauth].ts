@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
             dni: user.dni,
             id: user.id,
             direccion: user.direccion
-          }
+          } as any
         } catch (err) {
           const error = err as Error
           throw new Error(error.message)
