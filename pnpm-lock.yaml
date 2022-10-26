@@ -18,6 +18,7 @@ specifiers:
   axios: ^1.1.3
   eslint: ^8.26.0
   eslint-config-next: 12.3.1
+  eslint-config-prettier: ^8.5.0
   eslint-config-standard: ^17.0.0
   eslint-plugin-import: ^2.26.0
   eslint-plugin-jest: ^27.1.3
@@ -30,6 +31,7 @@ specifiers:
   next: ^12.3.1
   next-auth: ^4.14.0
   postcss: ^8.4.18
+  prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
   react-hook-form: ^7.38.0
@@ -72,6 +74,7 @@ devDependencies:
   autoprefixer: 10.4.12_postcss@8.4.18
   eslint: 8.26.0
   eslint-config-next: 12.3.1_wyqvi574yv7oiwfeinomdzmc3m
+  eslint-config-prettier: 8.5.0_eslint@8.26.0
   eslint-config-standard: 17.0.0_43wwz2xsig5yhgcv2rleettsby
   eslint-plugin-import: 2.26.0_yxvyo6v5zwzggfecalzmx54lre
   eslint-plugin-jest: 27.1.3_himunudilofiyaga3ja2a2jxlq
@@ -81,6 +84,7 @@ devDependencies:
   jest: 29.2.1_@types+node@18.11.3
   jest-environment-jsdom: 29.2.1
   postcss: 8.4.18
+  prettier: 2.7.1
   tailwindcss: 3.2.1_postcss@8.4.18
   typescript: 4.8.4
 
@@ -2291,6 +2295,15 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /eslint-config-prettier/8.5.0_eslint@8.26.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.26.0
     dev: true
 
   /eslint-config-standard/17.0.0_43wwz2xsig5yhgcv2rleettsby:
@@ -4604,6 +4617,12 @@ packages:
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
     dev: true
 
   /pretty-format/27.5.1:
