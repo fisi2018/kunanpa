@@ -1,5 +1,5 @@
 import { useFormContext } from '@/hooks'
-import { Input } from '@material-tailwind/react'
+import { Input, Typography } from '@material-tailwind/react'
 import type { UpdateUserForm } from '../../types/forms'
 type Props = {
     disabled: boolean
@@ -10,12 +10,24 @@ export default function InputDni({ disabled }: Props) {
         formState: { errors }
     } = useFormContext<UpdateUserForm>()
     return (
-        <Input
-            disabled={disabled}
-            label="DNI"
-            type="number"
-            error={!!errors.dni}
-            {...register('dni')}
-        />
+        <>
+            <Input
+                disabled={disabled}
+                label="DNI"
+                type="number"
+                error={!!errors.dni}
+                {...register('dni')}
+            />
+            {errors.dni ? (
+                <Typography
+                    color="red"
+                    variant="small"
+                >
+                    {errors.dni.message}
+                </Typography>
+            ) : (
+                <></>
+            )}
+        </>
     )
 }

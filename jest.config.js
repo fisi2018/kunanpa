@@ -17,7 +17,9 @@ const customJestConfig = {
         '^@/components/(.*)$': '<rootDir>/components/$1',
         '^@/views/(.*)$': '<rootDir>/views/$1',
         '^@/hooks$': '<rootDir>/hooks/index',
-        '^@/constants$': '<rootDir>/constants/index'
+        '^@/constants$': '<rootDir>/constants/index',
+        '^@/utilities$': '<rootDir>/utilities/index',
+        '^@/utilities/(.*)$': '<rootDir>/utilities/$1'
     },
     testEnvironment: 'jest-environment-jsdom'
 }

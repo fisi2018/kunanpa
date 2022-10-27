@@ -1,5 +1,7 @@
-import { FormProvider, useAppForm, useBoolean } from '@/hooks'
+import { FormProvider, SubmitHandler, useAppForm, useBoolean } from '@/hooks'
+import { handleError } from '@/utilities/handleErrors'
 import {
+    Button,
     Card,
     CardBody,
     CardFooter,
@@ -27,9 +29,17 @@ export default function CardProfile({ profile }: Props) {
             dni: profile.dni
         }
     })
+    const onSubmit: SubmitHandler<UpdateUserForm> = form => {
+        try {
+            console.log('form', form)
+        } catch (e) {
+            const error = e as Error
+            handleError(error.message)
+        }
+    }
     return (
         <FormProvider {...methods}>
-            <form>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <Card>
                     <CardHeader>
                         <Image
@@ -54,7 +64,27 @@ export default function CardProfile({ profile }: Props) {
                     >
                         <InputDni disabled={!isEditing} />
                         <InputAddress disabled={!isEditing} />
-                        {isEditing ? <></> : <EditButton onClick={toogle} />}
+                        {isEditing ? (
+                            <div>
+                                <Button
+                                    color="light-green"
+                                    type="submit"
+                                >
+                                    Actualizar
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        methods.reset()
+                                        toogle()
+                                    }}
+                                    color="red"
+                                >
+                                    Cancelar
+                                </Button>
+                            </div>
+                        ) : (
+                            <EditButton onClick={toogle} />
+                        )}
                     </CardFooter>
                 </Card>
             </form>
