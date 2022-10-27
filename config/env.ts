@@ -6,3 +6,4 @@ export const FACEBOOK_ID = process.env.FACEBOOK_ID as string
 export const FACEBOOK_SECRET = process.env.FACEBOOK_SECRET as string
 export const API = process.env.API_URL as string
 export const BASE = process.env.BASE_URL as string
+export const API_V2 = process.env.API_V2_URL as string

@@ -1,7 +1,7 @@
 import Layout from '@/components/layout'
 import { Category, Route } from '@/types/models'
 import { createProfileAdapter } from './adapters'
-import CardProfile from './components/CardProfile'
+import { CardProfile } from './components'
 import { UserResponse } from './types/responses'
 
 type Props = {
