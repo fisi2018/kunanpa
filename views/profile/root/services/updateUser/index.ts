@@ -11,7 +11,12 @@ export const updateUser: FetcherAuthWithBody<
     try {
         const { data } = await kunanpaV2.put<UpdateUserResponse>(
             `/persona/${body.id}`,
-            body,
+            {
+                nombre: body.nombre,
+                avatar: body.avatar,
+                dni: body.dni,
+                direccion: body.direccion
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -20,6 +25,7 @@ export const updateUser: FetcherAuthWithBody<
         )
         return data
     } catch (e) {
+        console.log('error', e)
         throw handleErrorResponse(e)
     }
 }

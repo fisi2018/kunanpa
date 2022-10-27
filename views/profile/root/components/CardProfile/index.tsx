@@ -23,8 +23,8 @@ type Props = {
     profile: Profile
 }
 export default function CardProfile({ profile }: Props) {
-    const { value: isEditing, toogle } = useBoolean(false)
-    const { value: loading, toogle: change } = useBoolean(false)
+    const { value: isEditing, toggle } = useBoolean(false)
+    const { value: loading, toggle: change } = useBoolean(false)
     const { data: session } = useSession()
     const methods = useAppForm<UpdateUserForm>({
         resolver: updateUserResolver,
@@ -49,6 +49,7 @@ export default function CardProfile({ profile }: Props) {
                 session.accessToken
             )
             handleSuccess(data.message)
+            toggle()
         } catch (e) {
             const error = e as Error
             handleError(error.message)
@@ -60,10 +61,11 @@ export default function CardProfile({ profile }: Props) {
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <Card>
-                    <CardHeader>
+                    <CardHeader className="p-4">
                         <Image
-                            width={200}
-                            height={200}
+                            layout="responsive"
+                            width={100}
+                            height={100}
                             src={profile.img}
                             alt={profile.name}
                         />
@@ -79,12 +81,12 @@ export default function CardProfile({ profile }: Props) {
                     </CardBody>
                     <CardFooter
                         divider
-                        className="grid gap-2 place-content-center"
+                        className="grid gap-4 place-content-center"
                     >
                         <InputDni disabled={!isEditing} />
                         <InputAddress disabled={!isEditing} />
                         {isEditing ? (
-                            <div>
+                            <div className="grid grid-cols-2 gap-2">
                                 {loading ? (
                                     <Loader />
                                 ) : (
@@ -98,7 +100,7 @@ export default function CardProfile({ profile }: Props) {
                                         <Button
                                             onClick={() => {
                                                 methods.reset()
-                                                toogle()
+                                                toggle()
                                             }}
                                             color="red"
                                         >
@@ -108,7 +110,7 @@ export default function CardProfile({ profile }: Props) {
                                 )}
                             </div>
                         ) : (
-                            <EditButton onClick={toogle} />
+                            <EditButton onClick={toggle} />
                         )}
                     </CardFooter>
                 </Card>
