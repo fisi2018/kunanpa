@@ -20,7 +20,8 @@ const customJestConfig = {
         '^@/constants$': '<rootDir>/constants/index',
         '^@/utilities$': '<rootDir>/utilities/index',
         '^@/utilities/(.*)$': '<rootDir>/utilities/$1',
-        '^@/config$': '<rootDir>/config/index'
+        '^@/config$': '<rootDir>/config/index',
+        '^@/__mocks__$': '<rootDir>/__mocks__/index'
     },
     testEnvironment: 'jest-environment-jsdom'
 }

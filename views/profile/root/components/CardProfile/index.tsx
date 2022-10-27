@@ -1,5 +1,6 @@
+import Loader from '@/components/common/Loader'
 import { FormProvider, SubmitHandler, useAppForm, useBoolean } from '@/hooks'
-import { handleError } from '@/utilities/handleErrors'
+import { handleError, handleSuccess } from '@/utilities/handleErrors'
 import {
     Button,
     Card,
@@ -8,7 +9,9 @@ import {
     CardHeader,
     Typography
 } from '@material-tailwind/react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { updateUser } from '../../services'
 import type { UpdateUserForm } from '../../types/forms'
 import type { Profile } from '../../types/models'
 import { updateUserResolver } from '../../validators'
@@ -21,6 +24,8 @@ type Props = {
 }
 export default function CardProfile({ profile }: Props) {
     const { value: isEditing, toogle } = useBoolean(false)
+    const { value: loading, toogle: change } = useBoolean(false)
+    const { data: session } = useSession()
     const methods = useAppForm<UpdateUserForm>({
         resolver: updateUserResolver,
         defaultValues: {
@@ -29,12 +34,26 @@ export default function CardProfile({ profile }: Props) {
             dni: profile.dni
         }
     })
-    const onSubmit: SubmitHandler<UpdateUserForm> = form => {
+    const onSubmit: SubmitHandler<UpdateUserForm> = async form => {
         try {
-            console.log('form', form)
+            change()
+            if (!session) throw new Error('Debe iniciar sesión para continuar')
+            const data = await updateUser(
+                {
+                    id: session.user.id.toString(),
+                    avatar: session.user.avatar,
+                    nombre: form.name,
+                    direccion: form.address,
+                    dni: parseInt(form.dni)
+                },
+                session.accessToken
+            )
+            handleSuccess(data.message)
         } catch (e) {
             const error = e as Error
             handleError(error.message)
+        } finally {
+            change()
         }
     }
     return (
@@ -66,21 +85,27 @@ export default function CardProfile({ profile }: Props) {
                         <InputAddress disabled={!isEditing} />
                         {isEditing ? (
                             <div>
-                                <Button
-                                    color="light-green"
-                                    type="submit"
-                                >
-                                    Actualizar
-                                </Button>
-                                <Button
-                                    onClick={() => {
-                                        methods.reset()
-                                        toogle()
-                                    }}
-                                    color="red"
-                                >
-                                    Cancelar
-                                </Button>
+                                {loading ? (
+                                    <Loader />
+                                ) : (
+                                    <>
+                                        <Button
+                                            color="light-green"
+                                            type="submit"
+                                        >
+                                            Actualizar
+                                        </Button>
+                                        <Button
+                                            onClick={() => {
+                                                methods.reset()
+                                                toogle()
+                                            }}
+                                            color="red"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                    </>
+                                )}
                             </div>
                         ) : (
                             <EditButton onClick={toogle} />

@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-mocks-import */
+import { mockSession } from '@/__mocks__'
 import {
     cleanup,
     fireEvent,
@@ -5,10 +7,27 @@ import {
     screen,
     waitFor
 } from '@testing-library/react'
+import { useSession } from 'next-auth/react'
+import { updateUser } from '../../services'
 import CardProfile from './index'
-import { FORM_MOCK_INVALID, PROFILE_MOCK } from './index.mock'
+import { FORM_MOCK_INVALID, FORM_MOCK_VALID, PROFILE_MOCK } from './index.mock'
+jest.mock('../../services')
+jest.mock('next-auth/react')
 describe('CardProfile', () => {
     beforeEach(() => {
+        const useSessionMocked = useSession as jest.MockedFunction<
+            typeof useSession
+        >
+        useSessionMocked.mockReturnValue({
+            data: mockSession,
+            status: 'authenticated'
+        })
+        const updateUserMocked = updateUser as jest.MockedFunction<
+            typeof updateUser
+        >
+        updateUserMocked.mockResolvedValue({
+            message: 'Usuario actualizado correctamente'
+        })
         render(<CardProfile profile={PROFILE_MOCK} />)
     })
     afterEach(() => {
@@ -94,6 +113,31 @@ describe('CardProfile', () => {
             expect(inputsText[0]).not.toHaveValue(FORM_MOCK_INVALID.name)
             expect(inputsText[1]).not.toHaveValue(FORM_MOCK_INVALID.address)
             expect(inputDni).not.toHaveValue(FORM_MOCK_INVALID.dni)
+        })
+    })
+    it('should display success message when submit button is clicked', async () => {
+        const button = screen.getByRole('button', {
+            name: /editar/i
+        })
+        fireEvent.click(button)
+        const inputsText = screen.getAllByRole('textbox')
+        const inputDni = screen.getByRole('spinbutton')
+        fireEvent.change(inputsText[0], {
+            target: { value: FORM_MOCK_VALID.name }
+        })
+        fireEvent.change(inputsText[1], {
+            target: { value: FORM_MOCK_VALID.address }
+        })
+        fireEvent.change(inputDni, { target: { value: FORM_MOCK_VALID.dni } })
+        const updateButton = screen.getByRole('button', {
+            name: /actualizar/i
+        })
+        fireEvent.click(updateButton)
+        await waitFor(() => {
+            const successMessage = screen.getByText(
+                /usuario actualizado correctamente/i
+            )
+            expect(successMessage).toBeInTheDocument()
         })
     })
 })
