@@ -1,10 +1,9 @@
-import { FormProvider, useAppForm } from '@/hooks'
+import { FormProvider, useAppForm, useBoolean } from '@/hooks'
 import {
     Card,
     CardBody,
     CardFooter,
     CardHeader,
-    Input,
     Typography
 } from '@material-tailwind/react'
 import Image from 'next/image'
@@ -12,11 +11,14 @@ import type { UpdateUserForm } from '../../types/forms'
 import type { Profile } from '../../types/models'
 import { updateUserResolver } from '../../validators'
 import EditButton from '../EditButton'
+import InputAddress from '../InputAddress'
+import InputDni from '../InputDni'
 import InputName from '../InputName'
 type Props = {
     profile: Profile
 }
 export default function CardProfile({ profile }: Props) {
+    const { value: isEditing, toogle } = useBoolean(false)
     const methods = useAppForm<UpdateUserForm>({
         resolver: updateUserResolver,
         defaultValues: {
@@ -38,7 +40,7 @@ export default function CardProfile({ profile }: Props) {
                         />
                     </CardHeader>
                     <CardBody className="grid gap-2 place-content-center">
-                        <InputName />
+                        <InputName disabled={!isEditing} />
                         <Typography
                             className="text-center"
                             variant="small"
@@ -50,19 +52,9 @@ export default function CardProfile({ profile }: Props) {
                         divider
                         className="grid gap-2 place-content-center"
                     >
-                        <Input
-                            disabled
-                            label="DNI"
-                            error={!!methods.formState.errors.dni}
-                            {...methods.register('dni')}
-                        />
-                        <Input
-                            disabled
-                            label="Dirección"
-                            error={!!methods.formState.errors.address}
-                            {...methods.register('address')}
-                        />
-                        <EditButton />
+                        <InputDni disabled={!isEditing} />
+                        <InputAddress disabled={!isEditing} />
+                        {isEditing ? <></> : <EditButton onClick={toogle} />}
                     </CardFooter>
                 </Card>
             </form>

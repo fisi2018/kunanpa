@@ -6,7 +6,7 @@ describe('InputName in CardProfile', () => {
     it('should render correctly', () => {
         const { getByRole } = render(
             <FormProviderMock>
-                <InputName />
+                <InputName disabled={true} />
             </FormProviderMock>
         )
         const input = getByRole('textbox')

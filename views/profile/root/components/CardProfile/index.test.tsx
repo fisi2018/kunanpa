@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import CardProfile from './index'
 import { PROFILE_MOCK } from './index.mock'
 describe('CardProfile', () => {
@@ -14,16 +14,29 @@ describe('CardProfile', () => {
         expect(heading).toBeInTheDocument()
     })
     test('should render 3 inputs disabled', () => {
-        const inputs = screen.getAllByRole('textbox')
-        expect(inputs).toHaveLength(3)
-        expect(inputs[0]).toBeDisabled()
-        expect(inputs[1]).toBeDisabled()
-        expect(inputs[2]).toBeDisabled()
+        const inputsText = screen.getAllByRole('textbox')
+        const inputDni = screen.getByRole('spinbutton')
+        expect(inputsText).toHaveLength(2)
+        expect(inputsText[0]).toBeDisabled()
+        expect(inputsText[1]).toBeDisabled()
+        expect(inputDni).toBeDisabled()
     })
     test('should render edit button', () => {
         const button = screen.getByRole('button', {
             name: /editar/i
         })
         expect(button).toBeInTheDocument()
+    })
+    test('should enable inputs when edit button is clicked and hide editar button', () => {
+        const button = screen.getByRole('button', {
+            name: /editar/i
+        })
+        fireEvent.click(button)
+        const inputsText = screen.getAllByRole('textbox')
+        const inputDni = screen.getByRole('spinbutton')
+        expect(inputsText[0]).not.toBeDisabled()
+        expect(inputsText[1]).not.toBeDisabled()
+        expect(inputDni).not.toBeDisabled()
+        expect(button).not.toBeInTheDocument()
     })
 })

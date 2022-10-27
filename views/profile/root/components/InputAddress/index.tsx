@@ -4,17 +4,17 @@ import type { UpdateUserForm } from '../../types/forms'
 type Props = {
     disabled: boolean
 }
-export default function InputName({ disabled }: Props) {
+export default function InputAddress({ disabled }: Props) {
     const {
         register,
         formState: { errors }
     } = useFormContext<UpdateUserForm>()
     return (
         <Input
+            label="Dirección"
             disabled={disabled}
-            label="Nombre"
-            error={!!errors.name}
-            {...register('name')}
+            {...register('address')}
+            error={!!errors.address}
         />
     )
 }

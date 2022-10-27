@@ -4,7 +4,7 @@ import type { UpdateUserForm } from '../../types/forms'
 type Props = {
     disabled: boolean
 }
-export default function InputName({ disabled }: Props) {
+export default function InputDni({ disabled }: Props) {
     const {
         register,
         formState: { errors }
@@ -12,9 +12,10 @@ export default function InputName({ disabled }: Props) {
     return (
         <Input
             disabled={disabled}
-            label="Nombre"
-            error={!!errors.name}
-            {...register('name')}
+            label="DNI"
+            type="number"
+            error={!!errors.dni}
+            {...register('dni')}
         />
     )
 }
