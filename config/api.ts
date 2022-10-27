@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { API } from './env'
+import { API, API_V2 } from './env'
 
 export const kunanpa = axios.create({
     baseURL: API
 })
 export const kunanpaV2 = axios.create({
-    baseURL: API
+    baseURL: API_V2
 })
