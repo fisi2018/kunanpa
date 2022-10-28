@@ -1,5 +1,5 @@
 import type { Session } from 'next-auth'
-
+const useSession = jest.spyOn(require('next-auth/react'), 'useSession')
 export const mockSession: Session = {
     accessToken: 'accessToken',
     expires: '1h',
@@ -12,4 +12,12 @@ export const mockSession: Session = {
         nombre: 'John Doe',
         provider: 'credentials'
     }
+}
+export const mockUseSession = (props: {
+    data: Partial<Session>
+    status: 'loading' | 'authenticated' | 'unauthenticated'
+}) => {
+    useSession.mockImplementationOnce(() => ({
+        ...props
+    }))
 }
