@@ -8,7 +8,13 @@ describe('getAllOrders service', () => {
         kunanpaMocked.get.mockResolvedValue({
             data: RESPONSE_MOCK
         })
-        const data = await getPedidos('3', 'access token')
+        const data = await getPedidos(
+            {
+                idUsuario: '1',
+                page: 1
+            },
+            'access token'
+        )
         expect(data).toEqual(RESPONSE_MOCK)
     })
 })

@@ -3,14 +3,19 @@ import { Category, Route } from '@/types/models'
 import { Typography } from '@material-tailwind/react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import useSWR from 'swr'
 import { createOrderHistoryAdapter } from './adapters'
 import { Table } from './components'
+import Pagination from './components/Pagination'
 import { getPedidos } from './services'
+import { RESPONSE_MOCK } from './services/getPedidos/index.mock'
+const ORDER_HISTORY = createOrderHistoryAdapter(RESPONSE_MOCK)
 type Props = {
     categories: Category[]
 }
 export default function HistorialCompras({ categories }: Props) {
+    const [page, setPage] = useState(1)
     const { data: session, status } = useSession()
     const { push } = useRouter()
     if (!session && status === 'unauthenticated') push('/login')
@@ -18,10 +23,13 @@ export default function HistorialCompras({ categories }: Props) {
         try {
             if (!session) throw new Error('Debe iniciar sesión para continuar')
             const response = await getPedidos(
-                session.user.id.toString(),
+                {
+                    idUsuario: session.user.id.toString(),
+                    page
+                },
                 session.accessToken
             )
-            return response
+            return createOrderHistoryAdapter(response)
         } catch (e) {
             const error = e as Error
             throw new Error(error.message)
@@ -55,13 +63,22 @@ export default function HistorialCompras({ categories }: Props) {
                 >
                     Historial de compras
                 </Typography>
-                <div className="flex justify-center align-items-center">
+                <div className="grid grid-cols-1 gap-4">
+                    <Typography
+                        color="gray"
+                        variant="paragraph"
+                    >
+                        Mostrando{' '}
+                        {data ? data.quantity : ORDER_HISTORY.quantity} de{' '}
+                        {data ? data.total : ORDER_HISTORY.total} resultados
+                    </Typography>
                     <Table
-                        compras={
-                            !data ? [] : createOrderHistoryAdapter(data).pedidos
-                        }
+                        compras={!data ? ORDER_HISTORY.pedidos : data.pedidos}
                     />
-                    <p>Total: {data ? data.total : 0}</p>
+                    <Pagination
+                        enlaces={data ? data.enlaces : ORDER_HISTORY.enlaces}
+                        setPage={setPage}
+                    />
                 </div>
             </section>
         </Layout>
