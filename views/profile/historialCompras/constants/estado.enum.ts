@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-export enum Estado{
-    Aprobado='Aprobado',
-    Finalizado='Finalizado',
-    Pendiente='Pendiente'
+export enum Estado {
+    Aprobado = 'approved',
+    Finalizado = 'Finalizado',
+    Pendiente = 'Pendiente'
 }
