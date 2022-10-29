@@ -7,40 +7,50 @@ import { useSession } from 'next-auth/react'
 import { MdRemove } from 'react-icons/md'
 import { KeyedMutator } from 'swr'
 import { WishListItem } from '../types/models'
-type Props={
-    item:WishListItem,
-  mutate: KeyedMutator<WishListItem[]>
+type Props = {
+    item: WishListItem
+    mutate: KeyedMutator<WishListItem[]>
 }
-export default function RemoveProductButton ({ item, mutate }:Props) {
-  const { data: session } = useSession()
-  const { value: loading, toogle } = useBoolean(false)
-  const handleClick = async () => {
-    try {
-      toogle()
-      if (!session) throw new Error('Necesita iniciar sesión para remover un producto')
-      const response = await deleteProductFromWishList(item._id.toString(), session.accessToken)
-      handleSuccess(response.message)
-      mutate()
-    } catch (e) {
-      const error = e as Error
-      handleError(error.message)
-    } finally {
-      toogle()
-    }
-  }
-  return (
-      <div className=' absolute top-0 right-0 ' >
-        {
-
-    loading
-      ? <Loader />
-      : <Tooltip content="Remover" >
-            <IconButton onClick={handleClick} color='red' variant='text' className='text-xl' size="lg" >
-                <MdRemove />
-            </IconButton>
-        </Tooltip>
+export default function RemoveProductButton({ item, mutate }: Props) {
+    const { data: session } = useSession()
+    const { value: loading, toggle } = useBoolean(false)
+    const handleClick = async () => {
+        try {
+            toggle()
+            if (!session)
+                throw new Error(
+                    'Necesita iniciar sesión para remover un producto'
+                )
+            const response = await deleteProductFromWishList(
+                item._id.toString(),
+                session.accessToken
+            )
+            handleSuccess(response.message)
+            mutate()
+        } catch (e) {
+            const error = e as Error
+            handleError(error.message)
+        } finally {
+            toggle()
         }
-    </div>
-
-  )
+    }
+    return (
+        <div className=" absolute top-0 right-0 ">
+            {loading ? (
+                <Loader />
+            ) : (
+                <Tooltip content="Remover">
+                    <IconButton
+                        onClick={handleClick}
+                        color="red"
+                        variant="text"
+                        className="text-xl"
+                        size="lg"
+                    >
+                        <MdRemove />
+                    </IconButton>
+                </Tooltip>
+            )}
+        </div>
+    )
 }
