@@ -6,12 +6,13 @@ type Props = {
     enlaces: EnlaceResponse[]
     setPage: Dispatch<SetStateAction<number>>
 }
-export default function Pagination({ enlaces }: Props) {
+export default function Pagination({ enlaces, setPage }: Props) {
     return (
         <nav className="flex flex-row justify-center gap-2 items-center">
             {enlaces.map(enlace => {
                 return (
                     <Button
+                        onClick={() => setPage(parseInt(enlace.label))}
                         color="blue-gray"
                         variant={enlace.active ? 'gradient' : 'text'}
                         key={enlace.url}

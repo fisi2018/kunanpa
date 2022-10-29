@@ -7,7 +7,7 @@ import { UpdateUserResponse } from '../../types/responses'
 export const updateUser: FetcherAuthWithBody<
     UpdateUserRequest,
     UpdateUserResponse
-> = async (body, token) => {
+> = async (body, _token) => {
     try {
         const { data } = await kunanpaV2.put<UpdateUserResponse>(
             `/persona/${body.id}`,
@@ -16,11 +16,6 @@ export const updateUser: FetcherAuthWithBody<
                 avatar: body.avatar,
                 dni: body.dni,
                 direccion: body.direccion
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             }
         )
         return data

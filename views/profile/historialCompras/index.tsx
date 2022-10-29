@@ -9,8 +9,6 @@ import { createOrderHistoryAdapter } from './adapters'
 import { Table } from './components'
 import Pagination from './components/Pagination'
 import { getPedidos } from './services'
-import { RESPONSE_MOCK } from './services/getPedidos/index.mock'
-const ORDER_HISTORY = createOrderHistoryAdapter(RESPONSE_MOCK)
 type Props = {
     categories: Category[]
 }
@@ -36,7 +34,7 @@ export default function HistorialCompras({ categories }: Props) {
             throw new Error(error.message)
         }
     }
-    const { data } = useSWR('/api/pedidos', fetcher)
+    const { data } = useSWR('/api/pedidos/id', fetcher)
     const routes: Route[] = [
         {
             label: 'Inicio',
@@ -66,18 +64,14 @@ export default function HistorialCompras({ categories }: Props) {
                 </Typography>
                 <div className="grid grid-cols-1 gap-4">
                     <Typography
-                        color="gray"
+                        className="text-gray-500"
                         variant="paragraph"
                     >
-                        Mostrando{' '}
-                        {data ? data.quantity : ORDER_HISTORY.quantity} de{' '}
-                        {data ? data.total : ORDER_HISTORY.total} resultados
+                        Total: {data?.total || 0} pedidos
                     </Typography>
-                    <Table
-                        compras={!data ? ORDER_HISTORY.pedidos : data.pedidos}
-                    />
+                    <Table compras={!data ? [] : data.pedidos} />
                     <Pagination
-                        enlaces={data ? data.enlaces : ORDER_HISTORY.enlaces}
+                        enlaces={data ? data.enlaces : []}
                         setPage={setPage}
                     />
                 </div>

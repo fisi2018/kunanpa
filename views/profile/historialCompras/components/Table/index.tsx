@@ -51,7 +51,9 @@ export default function TableHistorialCompras({ compras }: Props) {
                                 className="text-gray-600"
                                 variant="paragraph"
                             >
-                                {item.fechaCompra}
+                                {new Date(
+                                    item.fechaCompra
+                                ).toLocaleDateString()}
                             </Typography>
                         </td>
                         <td className="text-center p-2">

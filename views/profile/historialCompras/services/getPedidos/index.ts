@@ -7,15 +7,10 @@ import { OrderHistoryResponse } from '../../types/responses'
 export const getPedidos: FetcherAuthWithBody<
     OrderHistoryRequest,
     OrderHistoryResponse
-> = async ({ idUsuario, page }, token) => {
+> = async ({ idUsuario, page }, _token) => {
     try {
         const { data } = await kunanpaV2.get<OrderHistoryResponse>(
-            `/pedido/${idUsuario}` + (page !== 1 ? `?page=${page}` : ''),
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
+            `/pedido/${idUsuario}` + (page !== 1 ? `?page=${page}` : '')
         )
         return data
     } catch (e) {
