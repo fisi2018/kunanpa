@@ -31,6 +31,7 @@ export default function HistorialCompras({ categories }: Props) {
             )
             return createOrderHistoryAdapter(response)
         } catch (e) {
+            console.log('error en el fetcher', e)
             const error = e as Error
             throw new Error(error.message)
         }

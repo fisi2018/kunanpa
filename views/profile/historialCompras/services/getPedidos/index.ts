@@ -19,6 +19,7 @@ export const getPedidos: FetcherAuthWithBody<
         )
         return data
     } catch (e) {
+        console.log('error en getPedidos', e)
         throw handleErrorResponse(e)
     }
 }

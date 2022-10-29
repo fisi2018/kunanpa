@@ -1,8 +1,8 @@
 import { OrderHistoryResponse } from '../../types/responses'
 
 export const RESPONSE_MOCK: OrderHistoryResponse = {
-    total: 1,
-    per_page: 1,
+    total: 15,
+    per_page: 3,
     data: [
         {
             idPedido: '1',
@@ -10,14 +10,23 @@ export const RESPONSE_MOCK: OrderHistoryResponse = {
             fechaCompra: '2021-05-01',
             total: 100,
             estado: 'Pendiente'
+        },
+        {
+            idPedido: '2',
+            pedido: '2',
+            fechaCompra: '2021-05-02',
+            total: 200,
+            estado: 'Pendiente'
+        },
+        {
+            idPedido: '3',
+            pedido: '3',
+            fechaCompra: '2021-05-03',
+            total: 300,
+            estado: 'Pendiente'
         }
     ],
     links: [
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=1',
-            label: '&laquo; Anterior',
-            active: false
-        },
         {
             url: 'http://localhost:3000/api/v2/pedidos?page=1',
             label: '1',
@@ -46,31 +55,6 @@ export const RESPONSE_MOCK: OrderHistoryResponse = {
         {
             url: 'http://localhost:3000/api/v2/pedidos?page=6',
             label: '6',
-            active: false
-        },
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=7',
-            label: '7',
-            active: false
-        },
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=8',
-            label: '8',
-            active: false
-        },
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=9',
-            label: '9',
-            active: false
-        },
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=10',
-            label: '10',
-            active: false
-        },
-        {
-            url: 'http://localhost:3000/api/v2/pedidos?page=2',
-            label: 'Siguiente &raquo;',
             active: false
         }
     ]

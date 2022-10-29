@@ -9,6 +9,7 @@ module.exports = {
         FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
         API_URL: process.env.API_URL,
         API_URL_V2: process.env.API_URL_V2,
+        API_URL_V2_1: process.env.API_URL_V2_1,
         BASE_URL: process.env.BASE_URL
     },
     images: {
