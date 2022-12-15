@@ -1,4 +1,3 @@
-import { getCategories } from '@/services/categories'
 import Profile from '@/views/profile/root'
 import { getUserById } from '@/views/profile/root/services'
 import { GetServerSideProps } from 'next'
@@ -15,13 +14,12 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
         )
         if (!session)
             throw new Error('Debes iniciar sesión para acceder a este recurso')
-        const [categories, userById] = await Promise.all([
-            getCategories(),
-            getUserById({ id: session.user.id.toString() }, session.accessToken)
-        ])
+        const userById = await getUserById(
+            { id: session.user.id.toString() },
+            session.accessToken
+        )
         return {
             props: {
-                categories,
                 userById
             }
         }
