@@ -1,7 +1,4 @@
-import Link from 'next/link'
-import { BiSearch, BiUser } from 'react-icons/bi'
-import { IoIosArrowDown } from 'react-icons/io'
-import { Cart } from '../common/Cart'
+import { Category } from '@/types/models'
 import {
     Button,
     IconButton,
@@ -12,13 +9,17 @@ import {
     MenuList,
     Typography
 } from '@material-tailwind/react'
-import { Category } from '@/types/models'
-import ProfileMenu from './ProfileMenu'
 import { useSession } from 'next-auth/react'
-type Props = {
+import Link from 'next/link'
+import { BiSearch, BiUser } from 'react-icons/bi'
+import { IoIosArrowDown } from 'react-icons/io'
+import { Cart } from '../common/Cart'
+import ProfileMenu from './ProfileMenu'
+interface Props {
     categories: Category[]
+    isValidating: boolean
 }
-export default function Header({ categories }: Props) {
+export default function Header({ categories, isValidating }: Props) {
     const { data: session } = useSession()
     return (
         <header className="flex flex-col">
@@ -129,7 +130,7 @@ export default function Header({ categories }: Props) {
                 </nav>
             </div>
             <nav className="bg-gray-800 text-white p-2">
-                <ul className="flex">
+                <ul className={`flex ${isValidating ? 'animate-pulse' : ''}`}>
                     {categories.map(el => (
                         <li
                             key={el._id}

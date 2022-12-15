@@ -1,6 +1,7 @@
 import Layout from '@/components/layout'
-import { Category, Route } from '@/types/models'
-import { Typography } from '@material-tailwind/react'
+import { getCategories } from '@/services/categories'
+import { Route } from '@/types/models'
+import { Alert, Typography } from '@material-tailwind/react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -9,12 +10,15 @@ import { createOrderHistoryAdapter } from './adapters'
 import { Table } from './components'
 import Pagination from './components/Pagination'
 import { getPedidos } from './services'
-type Props = {
-    categories: Category[]
-}
-export default function HistorialCompras({ categories }: Props) {
+
+export default function HistorialCompras() {
     const [page, setPage] = useState(1)
     const { data: session, status } = useSession()
+    const {
+        data: categories,
+        isValidating: loading,
+        error
+    } = useSWR('/categories', getCategories)
     const { push } = useRouter()
     if (!session && status === 'unauthenticated') push('/login')
     const fetcher = async () => {
@@ -51,9 +55,11 @@ export default function HistorialCompras({ categories }: Props) {
     ]
     return (
         <Layout
-            categories={categories}
+            categories={categories || []}
+            isValidating={loading}
             routes={routes}
         >
+            {error && <Alert color="red">{error.message}</Alert>}
             <section className="min-h-screen p-4 flex flex-col  ">
                 <Typography
                     color="blue-gray"
