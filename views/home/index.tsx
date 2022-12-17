@@ -11,6 +11,8 @@ import {
     ListLinks,
     RowSpecialProducts
 } from './components'
+import { CardSpecialProductSkeleton } from './components/CardSpecialProduct/index.skeleton'
+import { ListLinksSkeleton } from './components/ListLinks/index.skeleton'
 import { COMMENTS_DEMO } from './constants'
 
 const routes: Route[] = [
@@ -53,19 +55,23 @@ export default function HomeView() {
             {error && <Alert color="red">{error.message}</Alert>}
             <section className="min-h-screen p-4 grid grid-cols-8 gap-y-16  ">
                 <div className="flex col-span-2 ">
-                    <ListLinks
-                        name="categorias"
-                        items={(data?.categories || []).map(el => ({
-                            href:
-                                '/' +
-                                el.name.toLowerCase().replaceAll(' ', '-') +
-                                '-' +
-                                el._id +
-                                '/',
-                            label: el.name
-                        }))}
-                        title="Categorías"
-                    />
+                    {data ? (
+                        <ListLinks
+                            name="categorias"
+                            items={data.categories.map(el => ({
+                                href:
+                                    '/' +
+                                    el.name.toLowerCase().replaceAll(' ', '-') +
+                                    '-' +
+                                    el._id +
+                                    '/',
+                                label: el.name
+                            }))}
+                            title="Categorías"
+                        />
+                    ) : (
+                        <ListLinksSkeleton />
+                    )}
                 </div>
                 <div className="flex p-2 col-span-3  ">
                     <BlockSpecialCategory
@@ -82,40 +88,58 @@ export default function HomeView() {
                     />
                 </div>
                 <div className="flex col-span-2">
-                    <ListLinks
-                        name="productos"
-                        items={(data?.categories || []).map(el => ({
-                            href:
-                                '/' +
-                                el.name.toLowerCase().replaceAll(' ', '-') +
-                                '-' +
-                                el._id +
-                                '/',
-                            label: el.name
-                        }))}
-                        title="Productos más vendidos"
-                    />
+                    {data ? (
+                        <ListLinks
+                            name="productos"
+                            items={data.categories.map(el => ({
+                                href:
+                                    '/' +
+                                    el.name.toLowerCase().replaceAll(' ', '-') +
+                                    '-' +
+                                    el._id +
+                                    '/',
+                                label: el.name
+                            }))}
+                            title="Productos más vendidos"
+                        />
+                    ) : (
+                        <ListLinksSkeleton />
+                    )}
                 </div>
                 <div className="flex col-span-6">
-                    <RowSpecialProducts
-                        nroProducts={3}
-                        products={data?.masVendidos || []}
-                    />
+                    {data ? (
+                        <RowSpecialProducts
+                            nroProducts={3}
+                            products={data?.masVendidos || []}
+                        />
+                    ) : (
+                        <div className="w-full grid grid-cols-3 gap-4 ">
+                            {[1, 2, 3].map((_el, i) => (
+                                <CardSpecialProductSkeleton
+                                    key={'mas vendidos' + '-' + i}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="flex col-span-2">
-                    <ListLinks
-                        name="productos"
-                        items={(data?.categories || []).map(el => ({
-                            href:
-                                '/' +
-                                el.name.toLowerCase().replaceAll(' ', '-') +
-                                '-' +
-                                el._id +
-                                '/',
-                            label: el.name
-                        }))}
-                        title="Arreglos exclusivos"
-                    />
+                    {data ? (
+                        <ListLinks
+                            name="productos"
+                            items={data.categories.map(el => ({
+                                href:
+                                    '/' +
+                                    el.name.toLowerCase().replaceAll(' ', '-') +
+                                    '-' +
+                                    el._id +
+                                    '/',
+                                label: el.name
+                            }))}
+                            title="Arreglos exclusivos"
+                        />
+                    ) : (
+                        <ListLinksSkeleton />
+                    )}
                 </div>
                 <div className="flex col-span-6">
                     <RowSpecialProducts

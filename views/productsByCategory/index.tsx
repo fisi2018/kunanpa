@@ -6,6 +6,7 @@ import { Route } from '@/types/models'
 import ListProducts from '@/views/productsByCategory/components/ListProducts'
 import { Alert } from '@material-tailwind/react'
 import useSWR from 'swr'
+import { CardProductSkeleton } from './components/CardProduct/index.skeleton'
 
 interface Props {
     category: string
@@ -50,18 +51,27 @@ export default function ProductsByCategoryView({ category }: Props) {
         >
             {error && <Alert color="red">{error.message}</Alert>}
             <section>
-                <ListProducts
-                    id={category.split('-').pop() as string}
-                    category={
-                        data?.categories.find(
-                            el =>
-                                el._id.toString() === category.split('-').pop()
-                        )?.name || ''
-                    }
-                    pages={data?.flowers.pages || []}
-                    total={data?.flowers.total || 0}
-                    flowers={data?.flowers.flowers || []}
-                />
+                {data ? (
+                    <ListProducts
+                        id={category.split('-').pop() as string}
+                        category={
+                            data.categories.find(
+                                el =>
+                                    el._id.toString() ===
+                                    category.split('-').pop()
+                            )?.name || ''
+                        }
+                        pages={data.flowers.pages}
+                        total={data.flowers.total}
+                        flowers={data.flowers.flowers}
+                    />
+                ) : (
+                    <div className="grid grid-cols-1 gap-4 w-full">
+                        {[1, 2, 3].map((_el, i) => (
+                            <CardProductSkeleton key={'products' + '-' + i} />
+                        ))}
+                    </div>
+                )}
             </section>
         </Layout>
     )

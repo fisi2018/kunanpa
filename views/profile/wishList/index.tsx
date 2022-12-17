@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { createWishListAdapter } from './adapters'
 import { CardProduct } from './components'
+import { CardProductSkeleton } from './components/CardProduct/index.skeleton'
 import { getWishList } from './services'
 
 const routes: Route[] = [
@@ -65,13 +66,19 @@ export default function WishListView() {
                         isValidating ? ' animate-pulse  ' : ''
                     }`}
                 >
-                    {(data || []).map(item => (
-                        <CardProduct
-                            mutate={mutate}
-                            key={item._id}
-                            item={item}
-                        />
-                    ))}
+                    {data
+                        ? data.map(item => (
+                              <CardProduct
+                                  mutate={mutate}
+                                  key={item._id}
+                                  item={item}
+                              />
+                          ))
+                        : [1, 2].map((_el, i) => (
+                              <CardProductSkeleton
+                                  key={'cardProduct' + '-' + i}
+                              />
+                          ))}
                 </div>
             </section>
         </Layout>

@@ -18,5 +18,5 @@
         "typescript",
         "typescriptreact"
     ],
-    "cSpell.words": ["esmodule", "Parens"]
+    "cSpell.words": ["esmodule", "Parens", "swal"]
 }

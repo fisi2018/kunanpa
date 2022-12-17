@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { BiSearch, BiUser } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { Cart } from '../common/Cart'
+import { NavItemSkeleton } from '../common/skeletons'
 import ProfileMenu from './ProfileMenu'
 interface Props {
     categories: Category[]
@@ -130,54 +131,62 @@ export default function Header({ categories, isValidating }: Props) {
                 </nav>
             </div>
             <nav className="bg-gray-800 text-white p-2">
-                <ul className={`flex ${isValidating ? 'animate-pulse' : ''}`}>
-                    {categories.map(el => (
-                        <li
-                            key={el._id}
-                            className=" flex items-center"
-                        >
-                            <Menu>
-                                <MenuHandler>
-                                    <Button
-                                        color="white"
-                                        variant="text"
-                                        className="flex items-center "
-                                    >
-                                        <Typography variant="small">
-                                            {el.name}
-                                        </Typography>
-                                        <span className="flex text-red-700 text-sm ">
-                                            <IoIosArrowDown />
-                                        </span>
-                                    </Button>
-                                </MenuHandler>
-                                <MenuList>
-                                    <MenuItem className="flex">
-                                        <Link
-                                            href={{
-                                                pathname: '/[category]',
-                                                query: {
-                                                    category:
-                                                        el.name
-                                                            .toLowerCase()
-                                                            .replaceAll(
-                                                                ' ',
-                                                                '-'
-                                                            ) +
-                                                        '-' +
-                                                        el._id
-                                                }
-                                            }}
-                                        >
-                                            <a className=" flex-1  ">
-                                                Ver Productos
-                                            </a>
-                                        </Link>
-                                    </MenuItem>
-                                </MenuList>
-                            </Menu>
+                <ul className={`flex `}>
+                    {categories.length === 0 ? (
+                        <li className="w-full">
+                            <NavItemSkeleton />
                         </li>
-                    ))}
+                    ) : (
+                        categories.map(el => (
+                            <li
+                                key={el._id}
+                                className={`flex items-center ${
+                                    isValidating ? 'animate-pulse' : ''
+                                }`}
+                            >
+                                <Menu>
+                                    <MenuHandler>
+                                        <Button
+                                            color="white"
+                                            variant="text"
+                                            className="flex items-center "
+                                        >
+                                            <Typography variant="small">
+                                                {el.name}
+                                            </Typography>
+                                            <span className="flex text-red-700 text-sm ">
+                                                <IoIosArrowDown />
+                                            </span>
+                                        </Button>
+                                    </MenuHandler>
+                                    <MenuList>
+                                        <MenuItem className="flex">
+                                            <Link
+                                                href={{
+                                                    pathname: '/[category]',
+                                                    query: {
+                                                        category:
+                                                            el.name
+                                                                .toLowerCase()
+                                                                .replaceAll(
+                                                                    ' ',
+                                                                    '-'
+                                                                ) +
+                                                            '-' +
+                                                            el._id
+                                                    }
+                                                }}
+                                            >
+                                                <a className=" flex-1  ">
+                                                    Ver Productos
+                                                </a>
+                                            </Link>
+                                        </MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </li>
+                        ))
+                    )}
                 </ul>
             </nav>
         </header>

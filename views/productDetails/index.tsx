@@ -1,12 +1,12 @@
-import Loader from '@/components/common/Loader'
 import Layout from '@/components/layout'
 import { getCategories } from '@/services/categories'
 import { getFlowerById } from '@/services/flowers'
 import { Route } from '@/types/models'
-import ProductDetailsSection from '@/views/productDetails/components/ProductDetailsSection'
+import { ProductDetailsSection } from '@/views/productDetails/components/ProductDetailsSection'
 import { Alert } from '@material-tailwind/react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import { ProductDetailsSectionSkeleton } from './components/ProductDetailsSection/index.skeleton'
 
 type Props = {
     idProduct: string
@@ -50,9 +50,9 @@ export default function ProductDetailsView({ idProduct }: Props) {
         >
             {error && <Alert color="red">{error.message}</Alert>}
             {data ? (
-                <ProductDetailsSection flower={data?.flower} />
+                <ProductDetailsSection flower={data.flower} />
             ) : (
-                <Loader />
+                <ProductDetailsSectionSkeleton />
             )}
         </Layout>
     )

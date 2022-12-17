@@ -1,6 +1,6 @@
 export * from './BlockSpecialCategory'
+export * from './CardComment'
+export * from './CardSpecialProduct'
 export { default as CarouselComments } from './CarouselComments'
 export * from './ListLinks'
 export * from './RowSpecialProducts'
-export * from './CardSpecialProduct'
-export * from './CardComment'
