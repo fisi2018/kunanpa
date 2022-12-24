@@ -31,7 +31,7 @@ export default function ProfileMenu({ session }: Props) {
                 })
                 if (!res) return
                 const response = await logout(session.accessToken)
-                console.log('response', response)
+                console.log('response:', response)
                 return await signOut()
             }
             return await signOut()
